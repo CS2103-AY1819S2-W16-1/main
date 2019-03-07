@@ -34,17 +34,16 @@
 <li><a href="#searching-in-linkedin-code-linkedin-code">3.19. Searching in LinkedIn : <code>linkedin</code></a></li>
 <li><a href="#importing-data-from-xml-code-import-code">3.20. Importing data from xml : <code>import</code></a></li>
 <li><a href="#exporting-data-to-xml-code-export-code">3.21. Exporting data to xml : <code>export</code></a></li>
-<li><a href="#find-people-by-tag-code-findtag-code">3.22. Find people by tag: <code>findTag</code></a></li>
-<li><a href="#sort-events-by-date-or-label-code-sort-code">3.23. Sort events by date or label : <code>sort</code></a></li>
-<li><a href="#remind-user-about-upcoming-event-code-remind-repeat-code">3.24. Remind user about upcoming event : <code>remind/repeat</code></a></li>
-<li><a href="#connecting-a-person-to-an-event-code-connect-code">3.25. Connecting a person to an event : <code>connect</code></a></li>
-<li><a href="#disconnecting-a-person-with-an-event-code-disconnect-code">3.26. Disconnecting a person with an event : <code>disconnect</code></a></li>
-<li><a href="#adding-an-event-code-adde-code">3.27. Adding an event: <code>addE</code></a></li>
-<li><a href="#deleting-an-event-code-deletee-code">3.28. Deleting an event : <code>deleteE</code></a></li>
-<li><a href="#listing-all-events-code-liste-code">3.29. Listing all events : <code>listE</code></a></li>
-<li><a href="#clearing-all-entries-code-cleare-code">3.30. Clearing all entries : <code>clearE</code></a></li>
-<li><a href="#showing-all-the-participants-code-displayp-code">3.31. Showing all the participants : <code>displayP</code></a></li>
-<li><a href="#planning-a-meeting-code-meet-code">3.32. Planning a meeting : <code>meet</code></a></li>
+<li><a href="#sort-events-by-date-or-label-code-sort-code">3.22. Sort events by date or label : <code>sort</code></a></li>
+<li><a href="#remind-user-about-upcoming-event-code-remind-repeat-code">3.23. Remind user about upcoming event : <code>remind/repeat</code></a></li>
+<li><a href="#connecting-a-person-to-an-event-code-connect-code">3.24. Connecting a person to an event : <code>connect</code></a></li>
+<li><a href="#disconnecting-a-person-with-an-event-code-disconnect-code">3.25. Disconnecting a person with an event : <code>disconnect</code></a></li>
+<li><a href="#adding-an-event-code-adde-code">3.26. Adding an event: <code>addE</code></a></li>
+<li><a href="#deleting-an-event-code-deletee-code">3.27. Deleting an event : <code>deleteE</code></a></li>
+<li><a href="#listing-all-events-code-liste-code">3.28. Listing all events : <code>listE</code></a></li>
+<li><a href="#clearing-all-entries-code-cleare-code">3.29. Clearing all entries : <code>clearE</code></a></li>
+<li><a href="#showing-all-the-participants-code-displayp-code">3.30. Showing all the participants : <code>displayP</code></a></li>
+<li><a href="#planning-a-meeting-code-meet-code">3.31. Planning a meeting : <code>meet</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">4. FAQ</a></li>
@@ -685,38 +684,7 @@ Format: <code>export FILEPATH</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-people-by-tag-code-findtag-code"><a class="link" href="#find-people-by-tag-code-findtag-code">3.22. Find people by tag: <code>findTag</code></a></h3>
-<div class="paragraph">
-<p>Find all the contacts with the tag.<br>
-Format: <code>findTag TAG</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>If there is no one having this <code>TAG</code>, nothing will be returned.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>findTag friend</code></p>
-</li>
-<li>
-<p><code>findTag family</code></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="sort-events-by-date-or-label-code-sort-code"><a class="link" href="#sort-events-by-date-or-label-code-sort-code">3.23. Sort events by date or label : <code>sort</code></a></h3>
+<h3 id="sort-events-by-date-or-label-code-sort-code"><a class="link" href="#sort-events-by-date-or-label-code-sort-code">3.22. Sort events by date or label : <code>sort</code></a></h3>
 <div class="paragraph">
 <p>Sorts the event list by the days left by adding -l into command, and list it.Or by the label( urgent, important, normal) by adding -d into command, and list it.+
 Format: <code>sort -l</code>
@@ -738,7 +706,7 @@ Format: <code>sort -d</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="remind-user-about-upcoming-event-code-remind-repeat-code"><a class="link" href="#remind-user-about-upcoming-event-code-remind-repeat-code">3.24. Remind user about upcoming event : <code>remind/repeat</code></a></h3>
+<h3 id="remind-user-about-upcoming-event-code-remind-repeat-code"><a class="link" href="#remind-user-about-upcoming-event-code-remind-repeat-code">3.23. Remind user about upcoming event : <code>remind/repeat</code></a></h3>
 <div class="paragraph">
 <p>Reminds users by automatically sending a pop message inside APP before any time of events beginning time
 Format: <code>remind EVENT_LIST_INDEX REMINDTIME_BEFORE</code>
@@ -793,7 +761,7 @@ The event with EVENT_LIST_INDEX will be repeatedly reminded once after REMINDTIM
 </div>
 </div>
 <div class="sect2">
-<h3 id="connecting-a-person-to-an-event-code-connect-code"><a class="link" href="#connecting-a-person-to-an-event-code-connect-code">3.25. Connecting a person to an event : <code>connect</code></a></h3>
+<h3 id="connecting-a-person-to-an-event-code-connect-code"><a class="link" href="#connecting-a-person-to-an-event-code-connect-code">3.24. Connecting a person to an event : <code>connect</code></a></h3>
 <div class="paragraph">
 <p>Connects one user from Contact List to Event List by contacts index and event index<br>
 Format: <code>connect CONTACT_LIST_INDEX EVENT_LIST_INDEX</code></p>
@@ -832,7 +800,7 @@ Add the third user’s name from Contact List into 19th event’ s participants 
 </div>
 </div>
 <div class="sect2">
-<h3 id="disconnecting-a-person-with-an-event-code-disconnect-code"><a class="link" href="#disconnecting-a-person-with-an-event-code-disconnect-code">3.26. Disconnecting a person with an event : <code>disconnect</code></a></h3>
+<h3 id="disconnecting-a-person-with-an-event-code-disconnect-code"><a class="link" href="#disconnecting-a-person-with-an-event-code-disconnect-code">3.25. Disconnecting a person with an event : <code>disconnect</code></a></h3>
 <div class="paragraph">
 <p>Disconnects one user from Contact List to Event List by contacts index and event index<br>
 Format: <code>disconnect CONTACT_LIST_INDEX EVENT_LIST_INDEX</code></p>
@@ -871,7 +839,7 @@ Disconnect the third user’s name from Contact List with 19th event’ s partic
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-an-event-code-adde-code"><a class="link" href="#adding-an-event-code-adde-code">3.27. Adding an event: <code>addE</code></a></h3>
+<h3 id="adding-an-event-code-adde-code"><a class="link" href="#adding-an-event-code-adde-code">3.26. Adding an event: <code>addE</code></a></h3>
 <div class="paragraph">
 <p>Adds an event to event list+
 Format: <code>addE n/NAME [d/DESCRIPTION] v/VENUE s/STARTING_TIME [e/ENDING_TIME] [t/LABEL]&#8230;&#8203;</code></p>
@@ -903,7 +871,7 @@ An event can have any number of label (including 0)
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-an-event-code-deletee-code"><a class="link" href="#deleting-an-event-code-deletee-code">3.28. Deleting an event : <code>deleteE</code></a></h3>
+<h3 id="deleting-an-event-code-deletee-code"><a class="link" href="#deleting-an-event-code-deletee-code">3.27. Deleting an event : <code>deleteE</code></a></h3>
 <div class="paragraph">
 <p>Deletes the specified event from the event list.<br>
 Format: <code>deleteE INDEX</code></p>
@@ -939,21 +907,21 @@ Deletes the 2nd event in the event list.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-all-events-code-liste-code"><a class="link" href="#listing-all-events-code-liste-code">3.29. Listing all events : <code>listE</code></a></h3>
+<h3 id="listing-all-events-code-liste-code"><a class="link" href="#listing-all-events-code-liste-code">3.28. Listing all events : <code>listE</code></a></h3>
 <div class="paragraph">
 <p>Shows a list of all events in the event list.<br>
 Format: <code>listE</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-cleare-code"><a class="link" href="#clearing-all-entries-code-cleare-code">3.30. Clearing all entries : <code>clearE</code></a></h3>
+<h3 id="clearing-all-entries-code-cleare-code"><a class="link" href="#clearing-all-entries-code-cleare-code">3.29. Clearing all entries : <code>clearE</code></a></h3>
 <div class="paragraph">
 <p>Clears all entries from the event list.<br>
 Format: <code>clearE</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="showing-all-the-participants-code-displayp-code"><a class="link" href="#showing-all-the-participants-code-displayp-code">3.31. Showing all the participants : <code>displayP</code></a></h3>
+<h3 id="showing-all-the-participants-code-displayp-code"><a class="link" href="#showing-all-the-participants-code-displayp-code">3.30. Showing all the participants : <code>displayP</code></a></h3>
 <div class="paragraph">
 <p>Show all participants in specific event
 Format: <code>displayP INDEX</code></p>
@@ -984,7 +952,7 @@ Return all participants names in 23rd event.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="planning-a-meeting-code-meet-code"><a class="link" href="#planning-a-meeting-code-meet-code">3.32. Planning a meeting : <code>meet</code></a></h3>
+<h3 id="planning-a-meeting-code-meet-code"><a class="link" href="#planning-a-meeting-code-meet-code">3.31. Planning a meeting : <code>meet</code></a></h3>
 <div class="paragraph">
 <p>Show all contacts
 Format: <code>meet INDEX</code></p>
@@ -1080,4 +1048,4 @@ e.g.<code>select 2</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-03-05 14:02:20 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-03-07 00:47:25 UTC</div></div></div></body></html>
