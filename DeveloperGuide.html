@@ -792,6 +792,40 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 <div class="paragraph">
 <p>Step 3. A list of possible events and the center location will be shown for the user to add.</p>
 </div>
+<div class="sect3">
+<h4 id="how-it-works"><a class="link" href="#how-it-works">3.3.1. How it works:</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>MeetCommandParser parses <code>meet</code> command. The MeetCommandParser will ensure that positive integer indices are entered in the CLI. If the command does not meet the requirements, a ParseException will be thrown. The parser also removes duplicate indices by using the <code>java.util.Set</code> interface.</p>
+</li>
+<li>
+<p>Indices are passed into MeetCommand for retrieval. The indices entered will be passed into the MeetCommandParser.</p>
+</li>
+<li>
+<p>MeetCommand retrieves persons from AddressBook. The persons retrieved will be stored temporarily in the instance.</p>
+</li>
+<li>
+<p>For each person, retrieve list of events within the next week. These events will be used to find available timeslots.</p>
+</li>
+<li>
+<p>Find a timeslot(s) which everyone can attend.</p>
+</li>
+<li>
+<p>If no timeslot(s) are available, prompt that there are no common timeslots among the people listed.</p>
+</li>
+<li>
+<p>Otherwise, get blocks of timeslot(s) which the given people can meet.</p>
+</li>
+<li>
+<p>Show list of possible meeting timeslots and the best location to meet.</p>
+</li>
+<li>
+<p>Once user chooses the desired timeslot, this meet event will be added to all users listed.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="logging"><a class="link" href="#logging">3.4. Logging</a></h3>
@@ -2417,4 +2451,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-03-19 14:05:52 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-03-19 14:10:25 UTC</div></div></div></body></html>
