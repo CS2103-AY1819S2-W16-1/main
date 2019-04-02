@@ -32,9 +32,10 @@
 <li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
 <li><a href="#event-list-component">3.2. Event list component</a></li>
 <li><a href="#connection-between-contact-and-event">3.3. Connection between contact and event</a></li>
-<li><a href="#proposed-meeting-planner">3.4. [Proposed] Meeting Planner</a></li>
-<li><a href="#logging">3.5. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.6. Configuration</a></li>
+<li><a href="#automatic-reminder">3.4. Automatic Reminder</a></li>
+<li><a href="#proposed-meeting-planner">3.5. [Proposed] Meeting Planner</a></li>
+<li><a href="#logging">3.6. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.7. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -887,7 +888,87 @@ To achieve this function and other contact-event related functions, a unidirecti
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-meeting-planner"><a class="link" href="#proposed-meeting-planner">3.4. [Proposed] Meeting Planner</a></h3>
+<h3 id="automatic-reminder"><a class="link" href="#automatic-reminder">3.4. Automatic Reminder</a></h3>
+<div class="paragraph">
+<p>The mechanism is supported by the <code>reminder</code> and <code>reminderList</code> class. It allows users to have an automatically generated reminder, which will pop in app 2 minutes before event start time.
+<code>reminderList</code> will keep track of all <code>reminder</code>.
+The <code>reminder</code> will be deleted after 3 minutes it shows on the screen.
+To achieve this function, another thread is created as the sequence diagram shown below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/reminderListSequenceDiagram.png" alt="reminderListSequenceDiagram" width="800">
+</div>
+</div>
+<div class="sect3">
+<h4 id="aspect-how-to-implement-automatic-reminder"><a class="link" href="#aspect-how-to-implement-automatic-reminder">3.4.1. Aspect: How to implement automatic reminder</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Create new model, named <code>reminder</code> to include <code>reminder</code> and <code>reminderList</code> class.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Convenient for modifying because of the relatively loose connection with <code>event</code>.</p>
+</li>
+<li>
+<p>Cons: Require large change in model.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Add another attribute named reminder to record the remind time and we can list the event by sorting remind time.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement. Only need <code>event</code> and <code>person</code> model.</p>
+</li>
+<li>
+<p>Cons: Not easy to delete corresponding reminder after its reminding time as it is highly connected with event. Cannot be applied and modified anywhere.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="aspect-how-to-implement-code-reminderlist-code"><a class="link" href="#aspect-how-to-implement-code-reminderlist-code">3.4.2. Aspect: How to implement <code>reminderList</code></a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Create only one reminder list for whole <code>UniLA</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Convenient for adding, deleting, and checking.</p>
+</li>
+<li>
+<p>Cons: Required more connection between logic and model.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Create one reminder list for each event for whole <code>UniLA</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement.</p>
+</li>
+<li>
+<p>Cons: Not centered. Need to loop through every event when add, delete and check.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="proposed-meeting-planner"><a class="link" href="#proposed-meeting-planner">3.5. [Proposed] Meeting Planner</a></h3>
 <div class="paragraph">
 <p>The mechanism is supported by the MeetCommand class. It allows users to create and store meeting events by automatically finding suitable timeslots to meet.</p>
 </div>
@@ -904,7 +985,7 @@ To achieve this function and other contact-event related functions, a unidirecti
 <p>Step 3. A list of possible events and the center location will be shown for the user to add.</p>
 </div>
 <div class="sect3">
-<h4 id="how-it-works"><a class="link" href="#how-it-works">3.4.1. How it works:</a></h4>
+<h4 id="how-it-works"><a class="link" href="#how-it-works">3.5.1. How it works:</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -939,14 +1020,14 @@ To achieve this function and other contact-event related functions, a unidirecti
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.5. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.6. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.6, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.7, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -977,7 +1058,7 @@ To achieve this function and other contact-event related functions, a unidirecti
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.6. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.7. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -2562,4 +2643,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-02 13:57:44 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-02 13:58:56 UTC</div></div></div></body></html>
