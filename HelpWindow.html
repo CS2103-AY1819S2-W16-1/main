@@ -17,9 +17,9 @@
 <li><a href="#adding-a-person-code-add-code">3.2. Adding a person: <code>add</code></a></li>
 <li><a href="#listing-all-persons-code-list-code">3.3. Listing all persons : <code>list</code></a></li>
 <li><a href="#editing-a-person-code-edit-code">3.4. Editing a person : <code>edit</code></a></li>
-<li><a href="#locating-persons-by-name-code-find-code">3.5. Locating persons by name: <code>find</code></a></li>
-<li><a href="#deleting-a-person-code-delete-code">3.6. Deleting a person : <code>delete</code></a></li>
-<li><a href="#selecting-a-person-code-select-code">3.7. Selecting a person : <code>select</code></a></li>
+<li><a href="#locating-persons-by-any-field-code-find-code">3.5. Locating persons by any field: <code>find</code></a></li>
+<li><a href="#deleting-a-person-code-delete-code">3.6. Deleting a person: <code>delete</code></a></li>
+<li><a href="#selecting-a-person-code-select-code">3.7. Selecting a person: <code>select</code></a></li>
 <li><a href="#listing-entered-commands-code-history-code">3.8. Listing entered commands : <code>history</code></a></li>
 <li><a href="#undoing-previous-command-code-undo-code">3.9. Undoing previous command : <code>undo</code></a></li>
 <li><a href="#redoing-the-previously-undone-command-code-redo-code">3.10. Redoing the previously undone command : <code>redo</code></a></li>
@@ -29,7 +29,7 @@
 <li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.14. Encrypting data files <code>[coming in v2.0]</code></a></li>
 <li><a href="#redirecting-to-email-services-code-email-code">3.15. Redirecting to email services : <code>email</code></a></li>
 <li><a href="#sorting-the-name-in-contact-list-alphabetically-code-sort-code">3.16. Sorting the name in contact list alphabetically : <code>sort</code></a></li>
-<li><a href="#adding-avatar-to-a-person-code-avatar-code">3.17. Adding avatar to a person : <code>avatar</code></a></li>
+<li><a href="#adding-photo-to-a-person-code-photo-code">3.17. Adding photo to a person : <code>photo</code></a></li>
 <li><a href="#importing-data-from-json-file-code-import-code">3.18. Importing data from .json file : <code>import</code></a></li>
 <li><a href="#exporting-data-to-json-file-by-tag-code-export-code">3.19. Exporting data to .json file by tag : <code>export</code></a></li>
 <li><a href="#auto-remind-users-about-upcoming-event-no-command">3.20. Auto remind users about upcoming event (No command)</a></li>
@@ -40,8 +40,9 @@
 <li><a href="#deleting-an-event-code-deletee-code">3.25. Deleting an event : <code>deleteE</code></a></li>
 <li><a href="#listing-all-events-code-liste-code">3.26. Listing all events : <code>listE</code></a></li>
 <li><a href="#editing-an-event-code-edite-code">3.27. Editing an event : <code>editE</code></a></li>
-<li><a href="#showing-all-the-participants-code-displayp-code">3.28. Showing all the participants : <code>displayP</code></a></li>
-<li><a href="#planning-a-meeting-code-meet-code">3.29. Planning a meeting : <code>meet</code></a></li>
+<li><a href="#locating-events-by-any-field-code-finde-code">3.28. Locating events by any field: <code>findE</code></a></li>
+<li><a href="#showing-all-the-participants-code-displayp-code">3.29. Showing all the participants : <code>displayP</code></a></li>
+<li><a href="#planning-a-meeting-code-meet-code">3.30. Planning a meeting : <code>meet</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">4. FAQ</a></li>
@@ -236,11 +237,18 @@ Edits the name of the 2nd person to be <code>Betsy Crower</code> and clears all 
 </div>
 </div>
 <div class="sect2">
-<h3 id="locating-persons-by-name-code-find-code"><a class="link" href="#locating-persons-by-name-code-find-code">3.5. Locating persons by name: <code>find</code></a></h3>
+<h3 id="locating-persons-by-any-field-code-find-code"><a class="link" href="#locating-persons-by-any-field-code-find-code">3.5. Locating persons by any field: <code>find</code></a></h3>
 <div class="paragraph">
 <p>Finds persons whose fields contain any of the given keywords.<br>
-Format1: <code>find KEYWORD [MORE_KEYWORDS]</code>
-Format2: [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]</p>
+User can search with or without prefix.
+When search without prefix, any person whose fields contain any keywords will be returned.
+When search with prefix, person who contains all keywords in his or her corresponding fields will be returned.</p>
+</div>
+<div class="paragraph">
+<p>Format1: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
+</div>
+<div class="paragraph">
+<p>Format2: <code>find prefix/KEYWORD, [MORE KEYWORDS]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -266,27 +274,79 @@ Format2: [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]</p>
 </div>
 </div>
 <div class="paragraph">
+<p>These are 3 search pattern that user can search with <code>find</code> command:<br></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Exact keyword match - Matches the input keyword with exact keywords found in the fields of persons.<br></p>
+</li>
+<li>
+<p>Fuzzy keyword match - Matches the input keyword to fields of persons with a similarity comparison. Here Levenshtein distance is used to calculate the edit distance between two strings. Subsequently, similarity = 1 - Levenshtein_Distance/Max_Length_Of_Two_String. The similarity threshold is set to 0.7. If a person&#8217;s fields containing keyword which have more than 0.7 similarity comparing to the input keywords, he or she will be returned as fuzzy search result.<br></p>
+</li>
+<li>
+<p>Wildcard keyword match – Matches your search keyword with wildcard character '*'. * represents any number of characters.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>**Search results are displayed in the following format:<br>
+n persons listed:<br>
+ Exact Search:<br>
+ [NAME]…<br>
+ Fuzzy Search:<br>
+ [NAME]…<br>
+ Wildcard Search:<br>
+ [NAME]…<br></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+ There are three part of executing 'find' command. First The input keywords are searched with exact string match. If it is not matched, then they are processed by fuzzy search. If fuzzy search still not matches, they will be searched by wildcard match.
+ Any results displayed in the previous searching stage will not be shown in the next searching stage. For example, if person Alice is found in exact string match, she will be displayed in exact search result list and will not be displayed in fuzzy search result. This is to avoid message duplication.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
 <p>Examples:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>find John PGP</code><br>
-Returns any person having fields with keywords <code>John</code> or <code>PGP</code></p>
+<p><code>find charlotte</code><br>
+search results:+
+In exact search: Returns any person whose fields contain keyword <code>John</code> in exact search
+In fuzzy search: Returns any person whose fields have keywords that have 0.7 similarity to <code>John</code> in fuzzy search</p>
 </li>
 <li>
-<p><code>find n/Betsy t/friends</code><br>
-Returns the person having name <code>Betsy</code> AND tag <code>friends</code></p>
+<p><code>find geylan firends</code><br>
+In exact search: Returns any person whose fields contain keywords <code>geylan</code> <strong>or</strong> <code>friends</code> <br>
+In fuzzy search: Returns any person whose fields have keywords that have 0.7 similarity to <code>geylan</code> <strong>or</strong> <code>friends</code><br></p>
 </li>
 <li>
 <p><code>find t/friends teammate</code><br>
-Returns any person having tag <code>friends</code> OR tag <code>teammate</code></p>
+In exact search: Returns any person whose fields contain keywords <code>friends</code> <strong>or</strong> <code>teammate</code><br>
+In fuzzy search: Returns any person whose fields have keywords that have 0.7 similarity to <code>friends</code> <strong>or</strong> <code>teammate</code><br></p>
+</li>
+<li>
+<p><code>find <strong>@gmail.com</code><br>
+In exact search: Returns any person whose fields contain keywords <code></strong>@gmail.com</code><br>
+In fuzzy search: Returns any person whose fields have keywords that have 0.7 similarity to <code><strong>@gmail.com</code><br>
+In wildcard search: Returns any person whose fields have keywords that matches regex <code></strong>@gmail.com</code><br></p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>Different search patterns optimize the 'find' command for different kind of user. They helps with user who cannot remember the exact spelling or who are prone to typos.</p>
+</div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-person-code-delete-code"><a class="link" href="#deleting-a-person-code-delete-code">3.6. Deleting a person : <code>delete</code></a></h3>
+<h3 id="deleting-a-person-code-delete-code"><a class="link" href="#deleting-a-person-code-delete-code">3.6. Deleting a person: <code>delete</code></a></h3>
 <div class="paragraph">
 <p>Deletes the specified person from the address book.<br>
 Format: <code>delete INDEX</code></p>
@@ -327,7 +387,7 @@ Deletes the 1st person in the results of the <code>find</code> command.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="selecting-a-person-code-select-code"><a class="link" href="#selecting-a-person-code-select-code">3.7. Selecting a person : <code>select</code></a></h3>
+<h3 id="selecting-a-person-code-select-code"><a class="link" href="#selecting-a-person-code-select-code">3.7. Selecting a person: <code>select</code></a></h3>
 <div class="paragraph">
 <p>Selects the person identified by the index number used in the displayed person list.<br>
 Format: <code>select INDEX</code></p>
@@ -498,7 +558,7 @@ There is no need to save manually.</p>
 <p>Redirect user to external email service on browser to email a specific email address</p>
 </div>
 <div class="paragraph">
-<p>Format: <code>email INDEX</code></p>
+<p>Format: <code>email INDEX</code> <code>[coming in v2.0]</code></p>
 </div>
 </div>
 <div class="sect2">
@@ -511,10 +571,10 @@ There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-avatar-to-a-person-code-avatar-code"><a class="link" href="#adding-avatar-to-a-person-code-avatar-code">3.17. Adding avatar to a person : <code>avatar</code></a></h3>
+<h3 id="adding-photo-to-a-person-code-photo-code"><a class="link" href="#adding-photo-to-a-person-code-photo-code">3.17. Adding photo to a person : <code>photo</code></a></h3>
 <div class="paragraph">
-<p>Adds avatar to a person (identified by the index number used in the last listing).<br>
-Format: <code>avatar INDEX IMAGE_PATH</code></p>
+<p>Adds photo to a person in the contact list (identified by the index number used in the last listing).<br>
+Format: <code>photo INDEX IMAGE_PATH</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -524,10 +584,7 @@ Format: <code>avatar INDEX IMAGE_PATH</code></p>
 <p>The index refers to the index number shown in the most recent listing.</p>
 </li>
 <li>
-<p>The given path must be pointed to a valid image in png, jp(e)g and svg format.</p>
-</li>
-<li>
-<p>The path should be valid.</p>
+<p>The given path must be a valid image path</p>
 </li>
 </ul>
 </div>
@@ -540,8 +597,8 @@ Format: <code>avatar INDEX IMAGE_PATH</code></p>
 <ul>
 <li>
 <p><code>list</code><br>
-<code>avatar 3 James.jpg</code><br>
-Adds avatar to the 3rd person in the address book.</p>
+<code>photo 3 /users/alice/desktop/photo.png</code><br>
+Adds photo to the 3rd person in the address book.</p>
 </li>
 </ul>
 </div>
@@ -853,7 +910,161 @@ Edits the venue of the 2nd event to be <code>com2 level4</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="showing-all-the-participants-code-displayp-code"><a class="link" href="#showing-all-the-participants-code-displayp-code">3.28. Showing all the participants : <code>displayP</code></a></h3>
+<h3 id="locating-events-by-any-field-code-finde-code"><a class="link" href="#locating-events-by-any-field-code-finde-code">3.28. Locating events by any field: <code>findE</code></a></h3>
+<div class="paragraph">
+<p>There are three search pattern for <code>findE</code> command.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>* 1. Finds events whose fields contain any of the given keywords.<br>
+User can search with or without prefix.
+When search without prefix, any events whose fields contain any keywords will be returned.
+When search with prefix, event which contains all keywords in the corresponding fields will be returned.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Format1: <code>findE KEYWORD [MORE_KEYWORDS]</code><br>
+Format2: <code>findE [n/NAME] [d/DESCRIPTION] [v/VENUE] [s/STARTING_TIME] [e/ENDING_TIME] [l/LABEL]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The search is case insensitive. e.g <code>talk</code> will match <code>Talk</code></p>
+</li>
+<li>
+<p>The order of the keywords does not matter. e.g. <code>cs meeting</code> will match <code>meeting cs</code></p>
+</li>
+<li>
+<p>Only full words will be matched e.g. <code>talk</code> will not match <code>talks</code></p>
+</li>
+<li>
+<p>If there is no prefix, all fields will be searched</p>
+</li>
+<li>
+<p>Events matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>talk</code> will return <code>google talk</code>, <code>career talk</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>findE meeting</code><br>
+Returns any events having fields contain keywords <code>meeting</code></p>
+</li>
+<li>
+<p><code>findE pgp library</code><br>
+Returns any events having fields contain keywords <code>pgp</code> or <code>library</code></p>
+</li>
+<li>
+<p><code>findE l/important</code><br>
+Returns any event having label contains keyword <code>important</code></p>
+</li>
+<li>
+<p><code>findE n/talk d/group</code><br>
+Returns the event whose name contains keyword <code>talk</code> AND whose description contains keyword <code>group</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>There are two sub command of <code>findE</code> command which is <code>findE time/</code> and <code>findE duration/</code>:
+* * 2. <code>findE time/</code> finds events whose start date before, equal or after the searching date. Alternatively user can user yst, today, tmr to search for events in yesterday, today and tomorrow</p>
+</div>
+<div class="paragraph">
+<p>Format3: <code>findE time/operatorDATE</code>
+Format4: <code>findE time/alias(ytd, today or tmr)</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>operator should be of type ‘&lt;‘, ‘=‘ or ‘&gt;’</p>
+</li>
+<li>
+<p>DATE should be a valid date</p>
+</li>
+<li>
+<p>DATE should in format “YYYY-MM-DD”</p>
+</li>
+<li>
+<p>operator and DATE should have no white space in between</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>findE time/tmr</code><br>
+Returns all the events start in tomorrow</p>
+</li>
+<li>
+<p><code>findE time/&lt;2019-04-30</code><br>
+Returns all the events before 2019,4,30</p>
+</li>
+<li>
+<p><code>findE time/=2019–04-01</code><br>
+Returns all the events happens on 2019,4,1</p>
+</li>
+<li>
+<p>* 3. <code>findE duration/</code> finds events whose duration is smaller, equal to or larger than the searching period</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Format4: <code>findE duration/operatorHOURS</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>operator should be of type ‘&lt;‘, ‘=‘ or ‘&gt;’</p>
+</li>
+<li>
+<p>HOURS is an integer represents the hours of the duration</p>
+</li>
+<li>
+<p>HOURS should be an positive integer within range [1,24]</p>
+</li>
+<li>
+<p>operator and HOURS should have no white space in between</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>findE duration/&lt;2</code><br>
+Returns all the events which is shorter than 2 hours</p>
+</li>
+<li>
+<p><code>findE uration/&gt;4</code><br>
+Returns all the events which is longer than 4 hours</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="showing-all-the-participants-code-displayp-code"><a class="link" href="#showing-all-the-participants-code-displayp-code">3.29. Showing all the participants : <code>displayP</code></a></h3>
 <div class="paragraph">
 <p>Show all participants in specific event
 Format: <code>displayP INDEX</code></p>
@@ -884,7 +1095,7 @@ Return all participants names in 23rd event.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="planning-a-meeting-code-meet-code"><a class="link" href="#planning-a-meeting-code-meet-code">3.29. Planning a meeting : <code>meet</code></a></h3>
+<h3 id="planning-a-meeting-code-meet-code"><a class="link" href="#planning-a-meeting-code-meet-code">3.30. Planning a meeting : <code>meet</code></a></h3>
 <div class="paragraph">
 <p>Creates a meeting event among certain people.
 Format: <code>meet INDEX</code></p>
@@ -990,6 +1201,17 @@ e.g. <code>deleteE 3</code></p>
 e.g. <code>editE 1 d/short meeting l/top priority</code></p>
 </li>
 <li>
+<p><strong>FindE</strong> : <code>findE KEYWORD [MORE_KEYWORDS]</code><br>
+or 'findE [n/NAME] [d/DESCRIPTION] [v/VENUE] [s/STARTING_TIME] [e/ENDING_TIME] [l/LABEL]<br>
+or <code>findE time/operatorDATE</code><br>
+or <code>findE time/alias(ytd, today or tmr)</code><br>
+or <code>findE duration/operatorHOURS</code><br>
+e.g. <code>findE talk</code><br>
+e.g. <code>findE s/2019-04-07 10:00:00</code><br>
+e.g. <code>findE time/&lt;2019-04-09</code><br>
+e.g. <code>findE duration/&lt;3</code></p>
+</li>
+<li>
 <p><strong>ListE</strong> : <code>listE</code></p>
 </li>
 <li>
@@ -1001,4 +1223,4 @@ e.g. <code>editE 1 d/short meeting l/top priority</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-02 13:58:56 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-02 14:23:14 UTC</div></div></div></body></html>
