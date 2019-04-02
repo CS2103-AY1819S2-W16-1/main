@@ -869,7 +869,7 @@ To achieve this function, another thread is created as the sequence diagram show
 </strong> Cons: Not centered. Need to loop through every event when add, delete and check.</p>
 </div>
 <div class="paragraph">
-<p>=== [Proposed] Meeting Planner</p>
+<p>=== Meeting Planner</p>
 </div>
 <div class="paragraph">
 <p>The mechanism is supported by the MeetCommand class. It allows users to create and store meeting events by automatically finding suitable timeslots to meet.</p>
@@ -890,13 +890,11 @@ To achieve this function, another thread is created as the sequence diagram show
 <p>==== How it works:
 * MeetCommandParser parses <code>meet</code> command. The MeetCommandParser will ensure that positive integer indices are entered in the CLI. If the command does not meet the requirements, a ParseException will be thrown. The parser also removes duplicate indices by using the <code>java.util.Set</code> interface.
 * Indices are passed into MeetCommand for retrieval. The indices entered will be passed into the MeetCommandParser.
-* MeetCommand retrieves persons from AddressBook. The persons retrieved will be stored temporarily in the instance.
-* For each person, retrieve list of events within the next week. These events will be used to find available timeslots.
-* Find a timeslot(s) which everyone can attend.
-* If no timeslot(s) are available, prompt that there are no common timeslots among the people listed.
-* Otherwise, get blocks of timeslot(s) which the given people can meet.
-* Show list of possible meeting timeslots and the best location to meet.
-* Once user chooses the desired timeslot, this meet event will be added to all users listed.</p>
+* MeetCommand retrieves persons from UniLA. The persons retrieved will be stored temporarily in the instance.
+* Execute will pull the entire events list from the UniLA.
+* The events will be piped through a stream and filtered such that all events contain at least one of the people listed to meet.
+* The first 2h timeslot starting from the time the command was entered would be found.
+* Event will be automatically created, added to the model, and set as the selected event, and the event list will be shown in the UI.</p>
 </div>
 <div class="paragraph">
 <p>=== Logging</p>
@@ -2501,4 +2499,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-02 15:02:50 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-02 15:13:09 UTC</div></div></div></body></html>
