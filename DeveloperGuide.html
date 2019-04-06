@@ -29,9 +29,11 @@
 </li>
 <li><a href="#implementation">3. Implementation</a>
 <ul class="sectlevel2">
-<li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
-<li><a href="#event-list-component">3.2. Event list component</a></li>
-<li><a href="#connection-between-contact-and-event">3.3. Connection between contact and event</a></li>
+<li><a href="#import-contacts">3.1. Import Contacts</a></li>
+<li><a href="#export">3.2. Export</a></li>
+<li><a href="#undo-redo-feature">3.3. Undo/Redo feature</a></li>
+<li><a href="#event-list-component">3.4. Event list component</a></li>
+<li><a href="#connection-between-contact-and-event">3.5. Connection between contact and event</a></li>
 </ul>
 </li>
 </ul>
@@ -520,9 +522,176 @@ As a more OOP model, we can store a <code>Tag</code> list in <code>Address Book<
 <p>This section describes some noteworthy details on how certain features are implemented.</p>
 </div>
 <div class="sect2">
-<h3 id="undo-redo-feature"><a class="link" href="#undo-redo-feature">3.1. Undo/Redo feature</a></h3>
+<h3 id="import-contacts"><a class="link" href="#import-contacts">3.1. Import Contacts</a></h3>
 <div class="sect3">
 <h4 id="current-implementation"><a class="link" href="#current-implementation">3.1.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>The ImportCommand uses <code>JsonAddressBookStorage</code> to create a temporary <code>AddressBook</code> instance from a given path. It takes in a Path <code>path</code> as argument. The command will add the contacts and events found in this temporary AddressBook but not present in the AddressBook storage into storage. The constructor for ImportCommand is as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"> <span class="directive">public</span> ImportCommand(Path importPath) {
+        requireNonNull(importPath);
+        <span class="local-variable">this</span>.filePath = importPath;
+        addressBookStorage = <span class="keyword">new</span> JsonAddressBookStorage(filePath);
+ }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The execution flow of ImportCommand is shown in the diagram below.</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="images/ImportCommandFlowChart.png" alt="ImportCommandFlowChart">
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Figure: Import command flow chart</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">3.1.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspects-implementation-import-command"><a class="link" href="#aspects-implementation-import-command">Aspects : Implementation Import Command</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Users import contacts and events from one .json file.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: This approach minimizes the effort needed from users to import data.</p>
+</li>
+<li>
+<p>Cons: Users might want to separate contacts and events so that importing one component will not affect the other</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Users import contacts and events from separate files.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Contacts and events can be imported independently.</p>
+</li>
+<li>
+<p>Cons: It takes unnecessary extra effort to import data separately.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="export"><a class="link" href="#export">3.2. Export</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.2.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>The <code>ExportCommand</code> uses <code>JsonAddressBookStorage</code> class to generate a .json file storing events and contacts by specified tags to store at a specified path. It takes in a String <code>name</code>, Path <code>path</code> and an optional Tag <code>tag</code>. Omitting the tag will simply save all contacts and events into the json file. Below is the main idea ExportCommand constructor:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> ExportCommand(<span class="predefined-type">String</span> fileName, Path exportPath, Tag tagExport) {
+        requireNonNull(exportPath);
+        <span class="local-variable">this</span>.filePath = exportPath;
+        <span class="local-variable">this</span>.fileName = fileName;
+        <span class="local-variable">this</span>.tag = tagExport;
+        <span class="local-variable">this</span>.addressBookExported = <span class="keyword">new</span> AddressBook();
+        addressBookStorage = <span class="keyword">new</span> JsonAddressBookStorage(filePath);
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The execution flow of the Export command is shown below.</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="images/ExportCommandDiagram.png" alt="ExportCommandDiagram">
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Figure: Export command flow chart</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Either zero or one tag can be specified. Therefore below are the possible scenarios:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Without a tag</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The app exports all contacts and events in the address book by default.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>With a Tag</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The app exports all contacts bearing the specified tag in their tagset, along with all events.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The final step is to create the xml/excel file from the <code>teachConnectBook</code>. This is done with the help of the method <code>tryStorage()</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspects-implementation-export-command"><a class="link" href="#aspects-implementation-export-command">Aspects : Implementation Export Command</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1:</strong> Users can export contacts and events into separate files.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: This implementation removes the dependency between contacts and events. Users can change one component without affecting the other.</p>
+</li>
+<li>
+<p>Cons: It might take more effort from users to import and export data in general because they need to handle each component separately.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2 (current choice):</strong> Users export both contacts and events into the same file.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: This implementation helps remove the need for importing contacts and events separately. Instead both can be imported at once.</p>
+</li>
+<li>
+<p>Cons: Contacts and events are exported together, and thus there is codependency between these two components</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="undo-redo-feature"><a class="link" href="#undo-redo-feature">3.3. Undo/Redo feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.3.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The undo/redo mechanism is facilitated by <code>VersionedAddressBook</code>.
 It extends <code>AddressBook</code> with an undo/redo history, stored internally as an <code>addressBookStateList</code> and <code>currentStatePointer</code>.
@@ -652,7 +821,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations"><a class="link" href="#design-considerations">3.1.2. Design Considerations</a></h4>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
 <div class="ulist">
@@ -722,9 +891,9 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="event-list-component"><a class="link" href="#event-list-component">3.2. Event list component</a></h3>
+<h3 id="event-list-component"><a class="link" href="#event-list-component">3.4. Event list component</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.2.1. Current Implementation</a></h4>
+<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.4.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The Event list component complements Contact list to provide user with better manage events and their participants. To achieve this, a new event model is created to according to the below class diagram.</p>
 </div>
@@ -752,7 +921,7 @@ Several use cases are implemented for this event components, the use case diagra
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.2. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.4.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-to-implement-event-list-component"><a class="link" href="#aspect-how-to-implement-event-list-component">Aspect: How to implement Event list component</a></h5>
 <div class="ulist">
@@ -789,9 +958,9 @@ Several use cases are implemented for this event components, the use case diagra
 </div>
 </div>
 <div class="sect2">
-<h3 id="connection-between-contact-and-event"><a class="link" href="#connection-between-contact-and-event">3.3. Connection between contact and event</a></h3>
+<h3 id="connection-between-contact-and-event"><a class="link" href="#connection-between-contact-and-event">3.5. Connection between contact and event</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.3.1. Current Implementation</a></h4>
+<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.5.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The connect/disconnect mechanism is facilitated by the <code>persons</code> list attribute defined in <code>Event</code> class. All the participants for an event is stored inside the <code>persons</code> list.
 The connect/disconnect functions are achieved by adding/removing person from the list in a specific event.
@@ -2499,4 +2668,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-06 15:07:27 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-06 15:52:47 UTC</div></div></div></body></html>
