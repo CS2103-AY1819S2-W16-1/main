@@ -43,6 +43,7 @@
 <li><a href="#editing-an-event-code-edite-code">4.6. Editing an event : <code>editE</code></a></li>
 <li><a href="#locating-events-by-any-field-code-finde-code">4.7. Locating events by any field: <code>findE</code></a></li>
 <li><a href="#showing-all-the-participants-code-displayp-code">4.8. Showing all the participants : <code>displayP</code></a></li>
+<li><a href="#planning-a-meeting-code-meet-code">4.9. Planning a meeting : <code>meet</code></a></li>
 </ul>
 </li>
 <li><a href="#reminder-features">5. Reminder Features</a>
@@ -51,7 +52,6 @@
 <li><a href="#deleteing-a-reminder-code-deleter-code">5.2. Deleteing a reminder : <code>deleteR</code></a></li>
 <li><a href="#showing-full-reminder-list-code-listfr-code">5.3. Showing full reminder list : <code>listFr</code></a></li>
 <li><a href="#listR">5.4. Showing pop up reminder list : <code>listR</code></a></li>
-<li><a href="#planning-a-meeting-code-meet-code">5.5. Planning a meeting : <code>meet</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">6. FAQ</a></li>
@@ -1078,6 +1078,99 @@ Return all participants names in 23rd event.</p>
 </ul>
 </div>
 </div>
+<div class="sect2">
+<h3 id="planning-a-meeting-code-meet-code"><a class="link" href="#planning-a-meeting-code-meet-code">4.9. Planning a meeting : <code>meet</code></a></h3>
+<div class="paragraph">
+<p>Automatically creates a meeting event among certain people. The command will:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>search for the earliest available timeslot among the requested people to meet,</p>
+</li>
+<li>
+<p>create the meeting event in the event list,</p>
+</li>
+<li>
+<p>connect the requested people to the event and</p>
+</li>
+<li>
+<p>set the details of the event (such as name, description etc.) as requested.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="creating-a-simple-meeting"><a class="link" href="#creating-a-simple-meeting">4.9.1. Creating a simple meeting:</a></h4>
+<div class="paragraph">
+<p>This creates a simple meeting event lasting 2 hours, with the defaults of:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Name: <code>New meeting</code>,</p>
+</li>
+<li>
+<p>Description: <code>Meeting with contacts.</code>,</p>
+</li>
+<li>
+<p>Venue: <code>NUS</code>,</p>
+</li>
+<li>
+<p>Label: <code>meeting</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The earliest this event would be created will be at the start of the next hour from the time the event was run. That is, if user ran the command on 1st Jan 2019 at 4:59pm, the earliest meeting event that could be created would be on 1st Jan 2019 at 5pm.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>meet INDEX</code> or <code>meet TAGS</code>, or both <code>meet INDEX TAGS</code> where</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><code>INDEX</code> <strong>must be positive integers</strong> 1, 2, 3&#8230;&#8203;</p>
+</li>
+<li>
+<p><code>TAGS</code> <strong>must be valid alphanumeric tag names</strong>, each with the <code>t/</code> prefix, such as <code>t/tagOne t/tagTwo</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Example 1:
+* <code>list</code><br>
+List all contacts in index order. Find the indices of the contacts to meet. Say, the user requests to meet the 1st, 4th and 7th contact in this list.<br>
+<code>meet 1 4 7</code><br>
+This creates a 2h meeting event including the 1st, 4th and 7th contact in the contacts list.</p>
+</div>
+<div class="paragraph">
+<p>Example 2:
+* <code>list</code><br>
+List all contacts in index order. Find the tags of the contacts to meet. Say, the user requests to meet contacts with the <code>friends</code> tag.<br>
+<code>meet t/friends</code><br>
+This creates a 2h meeting event including all contacts with the <code>friends</code> tag.</p>
+</div>
+<div class="paragraph">
+<p>Example 3:
+* <code>list</code><br>
+List all contacts in index order. Find the indices and tags of the contacts to meet. Say, the user requests to meet the 1st and 3rd person, and everyone with the <code>family</code> and/or <code>colleagues</code> tags.<br>
+<code>meet 1 3 t/family t/colleagues</code><br>
+This creates a 2h meeting event including the 1st, 3rd contact in the list, and all contacts with the <code>family</code> and/or <code>colleagues</code> tag.</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1235,41 +1328,6 @@ Delete the 1st reminder in reminder full list.</p>
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="planning-a-meeting-code-meet-code"><a class="link" href="#planning-a-meeting-code-meet-code">5.5. Planning a meeting : <code>meet</code></a></h3>
-<div class="paragraph">
-<p>Creates a meeting event among certain people. Currently, an event will be created at the earliest 2h timeslot starting from the time the command is run. Default meeting names, venues and labels are provided at this stage.
-Not more than one meet event created by this tool can exist in the application as of v1.3, due to restrictions in event naming and so forth. Subsequent versions would allow for
-Format: <code>meet INDEX</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>INDEX <strong>must be positive integers</strong> 1,2,3&#8230;&#8203;</p>
-</li>
-<li>
-<p>INDEX may take on multiple indices.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>list</code><br>
-List all contacts in index order, find the contact index.<br>
-<code>meet 1 5 8</code><br>
-Create a suitable meeting timeslot and venue among the first, fifth and eighth person.</p>
-</li>
-</ul>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -1370,8 +1428,7 @@ e.g. <code>findE duration/&lt;3</code></p>
 <p><strong>Connect</strong> : <code>connect ci/CONTACT_LIST_INDEX ei/EVENT_LIST_INDEX</code></p>
 </li>
 <li>
-<p><strong>Disconnect</strong> : <code>disconnect ci/CONTACT_LIST_INDEX ei/EVENT_LIST_INDEX</code>
-/ end::commandsummary-jwl1997[]</p>
+<p><strong>Disconnect</strong> : <code>disconnect ci/CONTACT_LIST_INDEX ei/EVENT_LIST_INDEX</code></p>
 </li>
 <li>
 <p><strong>Meet</strong> : <code>meet INDEX [MORE INDICES]</code></p>
@@ -1379,4 +1436,4 @@ e.g. <code>findE duration/&lt;3</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-12 16:17:50 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-12 18:02:17 UTC</div></div></div></body></html>
