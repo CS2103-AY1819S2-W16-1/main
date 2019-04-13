@@ -947,7 +947,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 <div class="sect3">
 <h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.4.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>The mechanism is facilitated by <code>findCommand</code>, <code>findCommandParser</code> and different Predicates classes. It allows user to find a person with 3 different search patterns. During the execution of find command, 3 search patterns will be executed one by one.</p>
+<p>The mechanism is facilitated by <code>findCommand</code>, <code>findCommandParser</code> and different Predicate classes. It allows users to search with 3 different search patterns. During the execution of find command, 3 search patterns will be executed one by one.</p>
 </div>
 <div class="paragraph">
 <p>Given below is the process of executing find command:</p>
@@ -956,15 +956,15 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 <p>Step 1. The exact search: This is a base method of matching string. It&#8217;s implemented by String.equals().</p>
 </div>
 <div class="paragraph">
-<p>Step 2. The fuzzy search: This is based on similarity comparison. First edit distance between input keywords and string in people&#8217;s fields is calculated based on levenshtein distance algorithm. Subsequently, similarity is calculated by s = 1 - Levenshtein_Distance/Max_Length_Of_Two_Strings. The similarity threshold is set to 0.7. If a person’s fields contain keyword which have more than 0.7 similarity comparing to the input keywords, he or she will be returned in fuzzy search result.</p>
+<p>Step 2. The fuzzy search: This is based on similarity comparison. First edit distance between input keywords and the string in people&#8217;s fields is calculated based on Levenshtein Distance algorithm. Subsequently, similarity is calculated by s = 1 - Levenshtein_Distance/Max_Length_Of_Two_Strings. The similarity threshold is set to 0.7. If a person’s fields contain keyword which have more than 0.7 similarity to the input keywords, he or she will be returned in fuzzy search result.</p>
 </div>
 <div class="paragraph">
-<p>Step 3. The wildcard search: This is based on regular expression. It could recognize character *. the character \* could match any number of characters of 0-9,a-z or A-Z.</p>
+<p>Step 3. The wildcard search: This is based on regular expression. It recognizes character \*. The character * matches any number of alphanumeric characters consisting of 0-9, a-z and A-Z.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The following code snippet is from TagsContainsKeywordPredicate class. It shows an example of how predicate class works:</p>
+<p>The following code snippet is from <code>TagsContainsKeywordPredicate</code> class. It shows an example of how predicate class works:</p>
 </li>
 </ul>
 </div>
@@ -1041,7 +1041,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Different search patterns optimize the 'find' command for different kind of user. They help with user who cannot remember the exact spelling or who are prone to typos.
+Different search patterns optimize the 'find' command for different kinds of users. They help with users when they cannot remember the exact spelling or users who are prone to typos.
 </td>
 </tr>
 </table>
@@ -1054,25 +1054,25 @@ Different search patterns optimize the 'find' command for different kind of user
 <div class="sect3">
 <h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.5.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>The mechanism is facilitated by <code>Photo</code>, <code>PhotoCommand</code> class. It allows user to add a photo to the person in the contact list.</p>
+<p>The mechanism is facilitated by <code>Photo</code>, <code>PhotoCommand</code> class. A <code>Photo</code> class is added to <code>Model</code>. It allows users to add a photo to the person in the contact list.</p>
 </div>
 <div class="paragraph">
 <p>Given below is the process of executing photo command:</p>
 </div>
 <div class="paragraph">
-<p>Step 1. The command will be checked whether it contains sub command <code>clear</code>. If it is a photo clear command, the photo of the contact list will be set to default photo. The photo command execution is finished. Else, following steps will be executed.</p>
+<p>Step 1. The command will be checked whether it contains sub command <code>clear</code>. If it is a photo clear command, the photo of the contact list will reset to default photo. The photo command execution is finished. Else, following steps will be executed.</p>
 </div>
 <div class="paragraph">
-<p>Step 1. The input file path will be checked whether the file exists.</p>
+<p>Step 2. The input file path will be checked for whether the file exists.</p>
 </div>
 <div class="paragraph">
-<p>Step 2. The input file path will be checked whether it can be opened as an image.</p>
+<p>Step 3. The input file path will be checked for whether it can be opened as an image.</p>
 </div>
 <div class="paragraph">
-<p>Step 3. The size the of photo will be checked whether it is within the range (smaller than 20MB).</p>
+<p>Step 4. The size the of photo will be checked for whether it is within the range (smaller than 20MB).</p>
 </div>
 <div class="paragraph">
-<p>Step 4. The photo will be copied to the program and it is saved to the target person.</p>
+<p>Step 5. The photo will be copied to the program and it is saved to the target person.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1120,10 +1120,10 @@ Different search patterns optimize the 'find' command for different kind of user
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: The address book will not be affect if user moves, renames or deletes the photo in the original path. Stability of the program is ensured.</p>
+<p>Pros: The address book will not be affected if the photo in the original path is moved, renamed or deleted. Stability of the program is ensured.</p>
 </li>
 <li>
-<p>Cons: Consume more memory because the photo is copied to the program.</p>
+<p>Cons: Consumes more memory because the photo is copied to the program.</p>
 </li>
 </ul>
 </div>
@@ -1136,7 +1136,7 @@ Different search patterns optimize the 'find' command for different kind of user
 <p>Pros: Use less memory. Easy to implement.</p>
 </li>
 <li>
-<p>Cons: The photo will be not be displayed if user moves, renames or deletes the photo in the original path.</p>
+<p>Cons: The photo will be not be displayed if the photo in the original path is moved, renamed or deleted.</p>
 </li>
 </ul>
 </div>
@@ -3052,4 +3052,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-13 09:26:10 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-13 10:28:48 UTC</div></div></div></body></html>

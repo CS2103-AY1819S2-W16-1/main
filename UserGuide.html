@@ -259,10 +259,10 @@ Edits the name of the 2nd person to be <code>Betsy Crower</code> and clears all 
 <div class="sect2">
 <h3 id="locating-persons-by-any-field-code-find-code"><a class="link" href="#locating-persons-by-any-field-code-find-code">3.6. Locating persons by any field: <code>find</code></a></h3>
 <div class="paragraph">
-<p>Finds persons whose fields contain any of the given keywords.
-User can search with or without prefix.
-When search without prefix, any person whose fields contain any keywords will be returned.
-When search with prefix, person who contains all keywords in his or her corresponding fields will be returned.</p>
+<p>Finds people whose fields contain any of the input keywords.
+Searching can be done with or without prefix.
+When searched without prefix, people whose fields that contain any matching keywords will be returned.
+When searched with prefix, people whose corresponding fields that contain any matching keywords will be returned.</p>
 </div>
 <div class="paragraph">
 <p>Format1: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
@@ -288,18 +288,18 @@ When search with prefix, person who contains all keywords in his or her correspo
 </div>
 </div>
 <div class="paragraph">
-<p>These are 3 search pattern that user can search with <code>find</code> command:<br></p>
+<p>These are 3 search patterns that are utilized be the <code>find</code> command:<br></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Exact keyword match - Matches the input keyword with exact keywords found in the fields of contact list.</p>
+<p>Exact keyword match - Matches the input keyword with exact keywords found in people&#8217;s fields.</p>
 </li>
 <li>
-<p>Fuzzy keyword match - Matches the input keyword to people&#8217;s fields that have higher than 0.7 similarity. The similarity is calculated based on Levenshtein Distance. Further explanation is in developer guide.</p>
+<p>Fuzzy keyword match - Matches the input keyword to people&#8217;s fields that have higher than 0.7 similarity. The similarity is calculated based on Levenshtein Distance. Further explanation is provided in the developer guide.</p>
 </li>
 <li>
-<p>Wildcard keyword match – Matches the input keyword with wildcard character *. * represents any number of characters of 0-9, a-z or A-Z.</p>
+<p>Wildcard keyword match - Matches the input keyword with wildcard character *. * represents any number of alphanumeric characters consisting of 0-9, a-z and A-Z.</p>
 </li>
 </ol>
 </div>
@@ -320,7 +320,7 @@ n persons listed:<br>
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
- There are three parts of executing 'find' command. The input keywords are first searched with exact string match, then fuzzy search, and finally wildcard search.
+ There are three parts of executing <code>find</code> command. The input keywords are first searched with exact string match, then fuzzy search, and finally wildcard search.
  Any results displayed in the previous searching stage will not be shown in the next searching stage.<br>
  For example, if person Alice is found in exact string match, she will not be displayed in fuzzy search result. This is to avoid message duplication.
 </td>
@@ -334,24 +334,24 @@ n persons listed:<br>
 <ul>
 <li>
 <p><code>find victoria</code><br>
-In exact search: Returns any person whose fields contain keyword <code>victoria</code> in exact search. For example, person whose name is <code>Victoria</code> or person who lives in <code>Victoria Street</code>.<br>
-In fuzzy search: Returns any person whose fields have keywords similar to <code>victoria</code>. For example, person whose tags contain keyword Victory.<br></p>
+In exact search: Returns any person whose fields that contain keyword <code>victoria</code> in exact search. For example, person whose name is <code>Victoria</code> or person who lives in <code>Victoria Street</code>.<br>
+In fuzzy search: Returns any person whose fields that have keywords similar to <code>victoria</code>. For example, person whose tags containing the keyword <code>Victory</code>.<br></p>
 </li>
 <li>
-<p><code>find Serangon firends</code><br>
-In exact search: Returns any person whose fields contain keywords <code>Serangon</code> <strong>or</strong> <code>friends</code> <br>
-In fuzzy search: Returns any person whose fields have keywords similar to <code>Serangon</code> <strong>or</strong> <code>friends</code><br></p>
+<p><code>find Serangon doctor</code><br>
+In exact search: Returns any person whose fields that contain keywords <code>Serangon</code> <strong>or</strong> <code>doctor</code> <br>
+In fuzzy search: Returns any person whose fields that have keywords similar to <code>Serangon</code> <strong>or</strong> <code>doctor</code><br></p>
 </li>
 <li>
 <p><code>find t/owemoney friends</code><br>
-In exact search: Returns any person whose tags contain keywords <code>owemoney</code> <strong>or</strong> <code>friends</code><br>
-In fuzzy search: Returns any person whose tags have keywords similar to to <code>owemoney</code> <strong>or</strong> <code>friends</code><br></p>
+In exact search: Returns any person whose tags that contain keywords <code>owemoney</code> <strong>or</strong> <code>friends</code><br>
+In fuzzy search: Returns any person whose tags that have keywords similar to to <code>owemoney</code> <strong>or</strong> <code>friends</code><br></p>
 </li>
 <li>
 <p><code>find *@gmail.com</code><br>
-In exact search: Returns any person whose fields contain keywords <code>\*@gmail.com</code><br>
-In fuzzy search: Returns any person whose fields have keywords similar to <code>*@gmail.com</code><br>
-In wildcard search: Returns any person whose fields have keywords that match regex <code>\*@gmail.com</code><br></p>
+In exact search: Returns any person whose fields that contain keywords <code>*@gmail.com</code><br>
+In fuzzy search: Returns any person whose fields that have keywords similar to <code>*@gmail.com</code><br>
+In wildcard search: Returns any person whose fields that have keywords match regex <code>*@gmail.com</code><br></p>
 </li>
 </ul>
 </div>
@@ -567,11 +567,11 @@ There is no need to save manually.</p>
 <h3 id="adding-photo-to-a-person-code-photo-code"><a class="link" href="#adding-photo-to-a-person-code-photo-code">3.16. Adding photo to a person : <code>photo</code></a></h3>
 <div class="paragraph">
 <p>Adds photo to a person in the contact list (identified by the index number used in the last listing).<br>
-Format1: <code>photo INDEX IMAGE_PATH</code>+</p>
+Format1: <code>photo INDEX IMAGE_PATH</code></p>
 </div>
 <div class="paragraph">
-<p>Clear photo to a person in the contact list by sub-command <code>clear</code>. Photo of the person will be set to the default photo.
-Format1: <code>photo INDEX clear</code>+</p>
+<p>Removes photo from a person in the contact list by the sub-command <code>clear</code>. Photo of the person will reset to the default photo.<br>
+Format2: <code>photo INDEX clear</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -604,7 +604,7 @@ Format1: <code>photo INDEX clear</code>+</p>
 <code>photo 3 C:\Users\william\Desktop\photo.jpg</code> (in windows)<br>
 Adds photo to the 3rd person in the UniLA.<br>
 <code>photo 3 clear</code><br>
-Clear photo to the 3rd person in the UniLA. Photo is set to the default photo.</p>
+Removes the photo from the 3rd person in the UniLA. Photo is reset to the default photo.</p>
 </li>
 </ul>
 </div>
@@ -615,7 +615,7 @@ Clear photo to the 3rd person in the UniLA. Photo is set to the default photo.</
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-The added photo will be copied to the program. Thus, if you move, rename or delete the photo in the input path, UniLA will not be affected.
+The added photo will be copied to the program. Thus, if the photo in the original path is moved, renamed or deleted, UniLA will not be affected.
 </td>
 </tr>
 </table>
@@ -867,7 +867,7 @@ Format: <code>editE INDEX [n/NAME] [d/DESCRIPTION] [v/VENUE] [s/STARTING_TIME] [
 <div class="ulist">
 <ul>
 <li>
-<p>Edits the event at the specified <code>INDEX</code>. The index refers to the index number shown in the displayed event list. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>Edits the event at the specified <code>INDEX</code>. The index refers to the index number shown in the displayed event list. The index must be a positive integer 1, 2, 3, &#8230;&#8203;</p>
 </li>
 <li>
 <p>At least one of the optional fields must be provided.</p>
@@ -904,8 +904,10 @@ Edits the venue of the 2nd event to be <code>com2 level4</code>.</p>
 <div class="sect2">
 <h3 id="locating-events-by-any-field-code-finde-code"><a class="link" href="#locating-events-by-any-field-code-finde-code">4.7. Locating events by any field: <code>findE</code></a></h3>
 <div class="paragraph">
-<p>Finds events whose fields contain any of the given keywords.
-User can search with or without prefix. When search without prefix, any event whose fields contain any keywords will be returned. When search with prefix, event which contains all keywords in the corresponding fields will be returned.</p>
+<p>Finds events whose fields contain any of the input keywords.
+Searching can be done with or without prefix.
+When searched without prefix, events whose fields that contain any matching keywords will be returned.
+When searched with prefix, events whose corresponding fields that contain any matching keywords will be returned.</p>
 </div>
 <div class="paragraph">
 <p>Format1: <code>find KEYWORD [MORE_KEYWORDS]</code><br>
@@ -916,19 +918,19 @@ Format2: <code>find prefix/KEYWORD, [MORE KEYWORDS]</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>The search is case insensitive. e.g <code>talk</code> will match <code>Talk</code></p>
+<p>The search is case insensitive. e.g <code>talk</code> will match <code>Talk</code>.</p>
 </li>
 <li>
-<p>The order of the keywords does not matter. e.g. <code>cs meeting</code> will match <code>meeting cs</code></p>
+<p>The order of the keywords does not matter. e.g. <code>cs meeting</code> will match <code>meeting cs</code>.</p>
 </li>
 <li>
-<p>Only exact keywords will be matched e.g. <code>talk</code> will not match <code>talks</code></p>
+<p>Only exact keywords will be matched e.g. <code>talk</code> will not match <code>talks</code>.</p>
 </li>
 <li>
-<p>If there is no prefix, all fields will be searched</p>
+<p>If there is no prefix, all fields will be searched.</p>
 </li>
 <li>
-<p>Events matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>talk</code> will return <code>google talk</code>, <code>career talk</code></p>
+<p>Events matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>talk</code> will return <code>google talk</code> and <code>career talk</code>.</p>
 </li>
 </ul>
 </div>
@@ -941,21 +943,21 @@ Format2: <code>find prefix/KEYWORD, [MORE KEYWORDS]</code></p>
 <ul>
 <li>
 <p><code>findE google</code><br>
-Returns any events having fields contain keywords <code>meeting</code>. For example, event whose name is 'Google talk' or event whose venue is 'group meeting' will be returned.</p>
+Returns any events having fields that contain keywords <code>google</code>. For example, event whose name is 'Google talk' or event whose venue is 'Google building'.</p>
 </li>
 <li>
 <p><code>findE pgp library</code><br>
-Returns any events having fields contain keywords <code>pgp</code> or <code>library</code>. For example, events with venue 'pgp' or 'central library'.</p>
+Returns any events having fields that contain keywords <code>pgp</code> or <code>library</code>. For example, events with venue 'pgp' or 'central library'.</p>
 </li>
 <li>
 <p><code>findE l/important</code><br>
-Returns any event having label contains keyword <code>important</code>.</p>
+Returns any event having label that contains keyword <code>important</code>.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <p>There are two sub command of <code>findE</code> command which are <code>findE time/</code> and <code>findE duration/</code>:<br>
-<strong>1. <code>findE time/</code> finds events whose starting date before, equal to or after the searching date. Alternatively user can use ytd, today or tmr to search for events whose starting date is yesterday, today or tomorrow.</strong></p>
+<strong>1. <code>findE time/</code> finds events whose starting date are before, equal to or after the searching date. Alternatively alias (ytd, today or tmr) can be used to search for events whose starting date is yesterday, today or tomorrow.</strong></p>
 </div>
 <div class="paragraph">
 <p>Format3: <code>findE time/operatorDATE</code><br>
@@ -966,16 +968,16 @@ Format4: <code>findE time/alias(ytd, today or tmr)</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>operator should be of type ‘&lt;‘, ‘=‘ or ‘&gt;’</p>
+<p>operator should be of type <strong>&lt;</strong>, <strong>=</strong> or <strong>&gt;</strong>.</p>
 </li>
 <li>
-<p>DATE should be a valid date</p>
+<p>DATE should be a valid date.</p>
 </li>
 <li>
-<p>DATE should in format “YYYY-MM-DD”</p>
+<p>DATE should in format <strong>YYYY-MM-DD</strong>.</p>
 </li>
 <li>
-<p>operator and DATE should have no white space in between</p>
+<p>operator and DATE should have no blank space in between.</p>
 </li>
 </ul>
 </div>
@@ -987,17 +989,17 @@ Format4: <code>findE time/alias(ytd, today or tmr)</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>findE time/&gt;2019-04-01</code><br>
-Returns all the events whose starting dates are after 2019,4,1</p>
+<p><code>findE time/&gt;2019-12-01</code><br>
+Returns all the events whose starting dates are after 2019,12,1.</p>
 </li>
 <li>
 <p><code>findE time/tmr</code><br>
-Returns all the events start in tomorrow</p>
+Returns all the events that starting tomorrow.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p><strong>3. <code>findE duration/</code> finds events whose duration is smaller, equal to or larger than the searching period.</strong></p>
+<p><strong>2. <code>findE duration/</code> finds events whose duration is smaller, equal to or larger than the searching period.</strong></p>
 </div>
 <div class="paragraph">
 <p>Format5: <code>findE duration/operatorHOURS</code></p>
@@ -1007,16 +1009,16 @@ Returns all the events start in tomorrow</p>
 <div class="ulist">
 <ul>
 <li>
-<p>operator should be of type ‘&lt;‘, ‘=‘ or ‘&gt;’</p>
+<p>operator should be of type <strong>&lt;</strong>, <strong>=</strong> or <strong>&gt;</strong>.</p>
 </li>
 <li>
-<p>HOURS is an integer represents the hours of the duration</p>
+<p>HOURS is an integer representing the duration in hours.</p>
 </li>
 <li>
-<p>HOURS should be an positive integer within range [1,24]</p>
+<p>HOURS should be a positive integer within range [1,24].</p>
 </li>
 <li>
-<p>operator and HOURS should have no white space in between</p>
+<p>operator and HOURS should have no blank space in between.</p>
 </li>
 </ul>
 </div>
@@ -1029,11 +1031,11 @@ Returns all the events start in tomorrow</p>
 <ul>
 <li>
 <p><code>findE duration/&lt;2</code><br>
-Returns all the events which is shorter than 2 hours</p>
+Returns all the events which are shorter than 2 hours.</p>
 </li>
 <li>
 <p><code>findE duration/&gt;4</code><br>
-Returns all the events which is longer than 4 hours</p>
+Returns all the events which are longer than 4 hours.</p>
 </li>
 </ul>
 </div>
@@ -1874,4 +1876,4 @@ e.g. <code>findE duration/&lt;3</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-13 09:26:10 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-13 10:28:48 UTC</div></div></div></body></html>
