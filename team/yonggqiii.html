@@ -105,99 +105,6 @@
 </tbody>
 </table>
 <div class="sect2">
-<h3 id="planning-a-meeting-code-meet-code"><a class="link" href="#planning-a-meeting-code-meet-code">Planning a meeting : <code>meet</code></a></h3>
-<div class="paragraph">
-<p>Automatically creates a meeting event among certain people. The command will:</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>search for the earliest available timeslot among the requested people to meet,</p>
-</li>
-<li>
-<p>create the meeting event in the event list,</p>
-</li>
-<li>
-<p>connect the requested people to the event and</p>
-</li>
-<li>
-<p>set the details of the event (such as name, description etc.) as requested.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="creating-a-simple-meeting"><a class="link" href="#creating-a-simple-meeting">Creating a simple meeting:</a></h4>
-<div class="paragraph">
-<p>This creates a simple meeting event lasting 2 hours, with the defaults of:</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Name: <code>New meeting</code>,</p>
-</li>
-<li>
-<p>Description: <code>Meeting with contacts.</code>,</p>
-</li>
-<li>
-<p>Venue: <code>NUS</code>,</p>
-</li>
-<li>
-<p>Label: <code>meeting</code></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>The earliest this event would be created will be at the start of the next hour from the time the event was run. That is, if user ran the command on 1st Jan 2019 at 4:59pm, the earliest meeting event that could be created would be on 1st Jan 2019 at 5pm.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>meet INDEX</code> or <code>meet TAGS</code>, or both <code>meet INDEX TAGS</code> where</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p><code>INDEX</code> <strong>must be positive integers</strong> 1, 2, 3&#8230;&#8203;</p>
-</li>
-<li>
-<p><code>TAGS</code> <strong>must be valid alphanumeric tag names</strong>, each with the <code>t/</code> prefix, such as <code>t/tagOne t/tagTwo</code></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Example 1:
-* <code>list</code><br>
-List all contacts in index order. Find the indices of the contacts to meet. Say, the user requests to meet the 1st, 4th and 7th contact in this list.<br>
-<code>meet 1 4 7</code><br>
-This creates a 2h meeting event including the 1st, 4th and 7th contact in the contacts list.</p>
-</div>
-<div class="paragraph">
-<p>Example 2:
-* <code>list</code><br>
-List all contacts in index order. Find the tags of the contacts to meet. Say, the user requests to meet contacts with the <code>friends</code> tag.<br>
-<code>meet t/friends</code><br>
-This creates a 2h meeting event including all contacts with the <code>friends</code> tag.</p>
-</div>
-<div class="paragraph">
-<p>Example 3:
-* <code>list</code><br>
-List all contacts in index order. Find the indices and tags of the contacts to meet. Say, the user requests to meet the 1st and 3rd person, and everyone with the <code>family</code> and/or <code>colleagues</code> tags.<br>
-<code>meet 1 3 t/family t/colleagues</code><br>
-This creates a 2h meeting event including the 1st, 3rd contact in the list, and all contacts with the <code>family</code> and/or <code>colleagues</code> tag.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
 <h3 id="switching-views-code-switch-code"><a class="link" href="#switching-views-code-switch-code">Switching views: <code>switch</code></a></h3>
 <div class="paragraph">
 <p>Changes the view in the window. The default upon startup is in Contacts view. Running this command will toggle between contacts and events view.
@@ -278,4 +185,4 @@ Format: <code>switch</code></p>
 <p><em>{Optionally, you may include other projects in your portfolio.}</em></p>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-13 05:41:55 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-13 07:23:10 UTC</div></div></div></body></html>
