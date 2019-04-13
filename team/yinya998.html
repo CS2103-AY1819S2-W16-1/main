@@ -20,27 +20,27 @@
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Major enhancement</strong>: upgrade <strong>find command and implement *findE to support different search patterns in searching contact list and event list</strong></p>
+<p><strong>Major enhancement</strong>: upgrade <strong>find command</strong> and implement <strong>findE command</strong></p>
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: The <code>find</code> command allows the user to search for a person in contact list easily. User can search a person through exact keyword match, fuzzy keyword match or wildcard keyword match.
-The <code>findE</code> command allows the user to search for an event in contact list. User can search an event through exact keyword match, search the event on today, tomorrow and yesterday, and search the event with a certain duration.</p>
+<p>What it does: These two commands support different search patterns. <code>find</code> command allows the user to search for people in contact list easily. User can search a person through exact keyword match, fuzzy keyword match and wildcard keyword match.
+The <code>findE</code> command allows the user to search for events in event list. User can search an event through exact keyword match, search the event before, happens on or after certain date, and search the event with a certain duration.</p>
 </li>
 <li>
 <p>Justification: This feature is significant and efficient for user to manage a large list of contacts and events.</p>
 </li>
 <li>
-<p>Highlights: The enhancement and implementation involves reorganizing parse class and adding new predicates and several other class. The implementation is challenging because different search pattern is used and optimal algorithm is chosen after detailed analysis of the alternatives.</p>
+<p>Highlights: The enhancement and implementation involves reorganizing parse class and adding new predicates classes. The implementation is challenging because different search pattern is used and optimal algorithm is chosen after detailed analysis of the alternatives.</p>
 </li>
 <li>
-<p>Credits: levenshtein distance is used to calculate similarity between keywords.</p>
+<p>Credits: levenshtein distance is used to calculate similarity between keywords. [<a href="https://www.cnblogs.com/ivanyb/archive/2011/11/25/2263356.html">Original Blogger</a>]</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Minor enhancement</strong>:
+<p><strong>Minor enhancement</strong>:<br>
 <strong>Implement photo command which allows user to add photo to the person in the contact list.
 </strong>Implement personInfo fxml to display personal information on contact list.</p>
 </li>
@@ -59,13 +59,23 @@ The <code>findE</code> command allows the user to search for an event in contact
 <p>Setup netlify test</p>
 </li>
 <li>
-<p>Managed releases <code>v1.2</code> on GitHub</p>
-</li>
-<li>
 <p>Added issues to issue tracker</p>
 </li>
 <li>
-<p>PRs reviewed (with non-trivial review comments): <a href="https://github.com/CS2103-AY1819S2-W16-1/main/pull/117">#117</a></p>
+<p>Updated User Guide, Developer Guide, About Us pages</p>
+</li>
+<li>
+<p>Helped teammates with their problems ?????</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Community:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>PRs reviewed (with non-trivial review comments): <a href="https://github.com/CS2103-AY1819S2-W16-1/main/pull/117">#117</a>, <a href="https://github.com/CS2103-AY1819S2-W16-1/main/pull/210">#210</a></p>
 </li>
 <li>
 <p>Reported bugs and suggestions for other teams in the class (examples:  <a href="https://github.com">1</a>, <a href="https://github.com">2</a>, <a href="https://github.com">3</a>)</p>
@@ -96,7 +106,7 @@ The <code>findE</code> command allows the user to search for an event in contact
 <div class="sect2">
 <h3 id="locating-persons-by-any-field-code-find-code"><a class="link" href="#locating-persons-by-any-field-code-find-code">Locating persons by any field: <code>find</code></a></h3>
 <div class="paragraph">
-<p>Finds persons whose fields contain any of the given keywords.<br>
+<p>Finds persons whose fields contain any of the given keywords.
 User can search with or without prefix.
 When search without prefix, any person whose fields contain any keywords will be returned.
 When search with prefix, person who contains all keywords in his or her corresponding fields will be returned.</p>
@@ -136,12 +146,12 @@ When search with prefix, person who contains all keywords in his or her correspo
 <p>Fuzzy keyword match - Matches the input keyword to people&#8217;s fields that have higher than 0.7 similarity. The similarity is calculated based on Levenshtein Distance. Further explanation is in developer guide.</p>
 </li>
 <li>
-<p>Wildcard keyword match – Matches the input keyword with wildcard character *. * represents any number of characters.</p>
+<p>Wildcard keyword match – Matches the input keyword with wildcard character *. * represents any number of characters of 0-9, a-z or A-Z.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p><strong>Search results are displayed in the following format:</strong><br>
+<p><strong>Searching results are displayed in the following format:</strong><br>
 n persons listed:<br>
  Exact Search:<br>
  [NAME]…<br>
@@ -157,9 +167,9 @@ n persons listed:<br>
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
- There are three parts of executing 'find' command. First The input keywords are searched with exact string match. If it is not matched, then they are processed by fuzzy search. If fuzzy search still not matches, they will be searched by wildcard match.
+ There are three parts of executing 'find' command. The input keywords are first searched with exact string match, then fuzzy search, and finally wildcard search.
  Any results displayed in the previous searching stage will not be shown in the next searching stage.<br>
- For example, if person Alice is found in exact string match, she will be displayed in exact search result and will not be displayed in fuzzy search result. This is to avoid message duplication.
+ For example, if person Alice is found in exact string match, she will not be displayed in fuzzy search result. This is to avoid message duplication.
 </td>
 </tr>
 </table>
@@ -171,7 +181,7 @@ n persons listed:<br>
 <ul>
 <li>
 <p><code>find victoria</code><br>
-In exact search: Returns any person whose fields contain keyword <code>victoria</code> in exact search. For example, person whose name is Victoria or person who live in Victoria Street.<br>
+In exact search: Returns any person whose fields contain keyword <code>victoria</code> in exact search. For example, person whose name is <code>Victoria</code> or person who lives in <code>Victoria Street</code>.<br>
 In fuzzy search: Returns any person whose fields have keywords similar to <code>victoria</code>. For example, person whose tags contain keyword Victory.<br></p>
 </li>
 <li>
@@ -185,43 +195,22 @@ In exact search: Returns any person whose tags contain keywords <code>owemoney</
 In fuzzy search: Returns any person whose tags have keywords similar to to <code>owemoney</code> <strong>or</strong> <code>friends</code><br></p>
 </li>
 <li>
-<p><code>find <strong>@gmail.com</code><br>
-In exact search: Returns any person whose fields contain keywords <code></strong>@gmail.com</code><br>
-In fuzzy search: Returns any person whose fields have keywords similar to <code><strong>@gmail.com</code><br>
-In wildcard search: Returns any person whose fields have keywords that match regex <code></strong>@gmail.com</code><br></p>
+<p><code>find *@gmail.com</code><br>
+In exact search: Returns any person whose fields contain keywords <code>\*@gmail.com</code><br>
+In fuzzy search: Returns any person whose fields have keywords similar to <code>*@gmail.com</code><br>
+In wildcard search: Returns any person whose fields have keywords that match regex <code>\*@gmail.com</code><br></p>
 </li>
 </ul>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Different search patterns optimize the 'find' command for different kind of user. They help with user who cannot remember the exact spelling or who are prone to typos.
-</td>
-</tr>
-</table>
 </div>
 </div>
 <div class="sect2">
 <h3 id="locating-events-by-any-field-code-finde-code"><a class="link" href="#locating-events-by-any-field-code-finde-code">Locating events by any field: <code>findE</code></a></h3>
 <div class="paragraph">
-<p>There are three search pattern for <code>findE</code> command.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>* 1. Finds events whose fields contain any of the given keywords.<br>
-User can search with or without prefix.
-When search without prefix, any events whose fields contain any keywords will be returned.
-When search with prefix, event which contains all keywords in the corresponding fields will be returned.</p>
-</li>
-</ul>
+<p>Finds events whose fields contain any of the given keywords.
+User can search with or without prefix. When search without prefix, any event whose fields contain any keywords will be returned. When search with prefix, event which contains all keywords in the corresponding fields will be returned.</p>
 </div>
 <div class="paragraph">
-<p>Format1: <code>find KEYWORD [MORE_KEYWORDS]</code>
+<p>Format1: <code>find KEYWORD [MORE_KEYWORDS]</code><br>
 Format2: <code>find prefix/KEYWORD, [MORE KEYWORDS]</code></p>
 </div>
 <div class="sidebarblock">
@@ -253,8 +242,8 @@ Format2: <code>find prefix/KEYWORD, [MORE KEYWORDS]</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>findE meeting</code><br>
-Returns any events having fields contain keywords <code>meeting</code>. For example, events 'company meeting' and 'group meeting' will be returned.</p>
+<p><code>findE google</code><br>
+Returns any events having fields contain keywords <code>meeting</code>. For example, event whose name is 'Google talk' or event whose venue is 'group meeting' will be returned.</p>
 </li>
 <li>
 <p><code>findE pgp library</code><br>
@@ -267,11 +256,11 @@ Returns any event having label contains keyword <code>important</code>.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>There are two sub command of <code>findE</code> command which is <code>findE time/</code> and <code>findE duration/</code>:
-* * 2. <code>findE time/</code> finds events whose starting date before, equal to or after the searching date. Alternatively user can use ytd, today or tmr to search for events whose starting date is yesterday, today or tomorrow.</p>
+<p>There are two sub command of <code>findE</code> command which are <code>findE time/</code> and <code>findE duration/</code>:<br>
+<strong>1. <code>findE time/</code> finds events whose starting date before, equal to or after the searching date. Alternatively user can use ytd, today or tmr to search for events whose starting date is yesterday, today or tomorrow.</strong></p>
 </div>
 <div class="paragraph">
-<p>Format3: <code>findE time/operatorDATE</code>
+<p>Format3: <code>findE time/operatorDATE</code><br>
 Format4: <code>findE time/alias(ytd, today or tmr)</code></p>
 </div>
 <div class="sidebarblock">
@@ -300,24 +289,20 @@ Format4: <code>findE time/alias(ytd, today or tmr)</code></p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>findE time/&gt;2019-04-01</code><br>
+Returns all the events whose starting dates are after 2019,4,1</p>
+</li>
+<li>
 <p><code>findE time/tmr</code><br>
 Returns all the events start in tomorrow</p>
-</li>
-<li>
-<p><code>findE time/&lt;2019-04-30</code><br>
-Returns all the events whose starting dates are before 2019,4,30</p>
-</li>
-<li>
-<p><code>findE time/=2019–04-01</code><br>
-Returns all the events whose starting dates are 2019,4,30</p>
-</li>
-<li>
-<p>* 3. <code>findE duration/</code> finds events whose duration is smaller, equal to or larger than the searching period</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Format4: <code>findE duration/operatorHOURS</code></p>
+<p><strong>3. <code>findE duration/</code> finds events whose duration is smaller, equal to or larger than the searching period.</strong></p>
+</div>
+<div class="paragraph">
+<p>Format5: <code>findE duration/operatorHOURS</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -373,10 +358,13 @@ Format1: <code>photo INDEX clear</code>+</p>
 <p>The index refers to the index number shown in the most recent listing.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index must be a positive integer 1, 2, 3, &#8230;&#8203;</p>
 </li>
 <li>
 <p>The given path must be a valid image path.</p>
+</li>
+<li>
+<p>The size of the photo should be smaller than 20MB.</p>
 </li>
 </ul>
 </div>
@@ -392,10 +380,22 @@ Format1: <code>photo INDEX clear</code>+</p>
 <code>photo 3 /users/alice/desktop/photo.png</code> (in mac)<br>
 <code>photo 3 C:\Users\william\Desktop\photo.jpg</code> (in windows)<br>
 Adds photo to the 3rd person in the UniLA.<br>
-<code>photo 3 clear</code> (in mac)<br>
+<code>photo 3 clear</code><br>
 Clear photo to the 3rd person in the UniLA. Photo is set to the default photo.</p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The added photo will be copied to the program. Thus, if you move, rename or delete the photo in the input path, UniLA will not be affected.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -414,23 +414,61 @@ Clear photo to the 3rd person in the UniLA. Photo is set to the default photo.</
 </tbody>
 </table>
 <div class="sect2">
-<h3 id="find-command"><a class="link" href="#find-command">Find command</a></h3>
+<h3 id="find-feature"><a class="link" href="#find-feature">Find feature</a></h3>
 <div class="sect3">
 <h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
 <div class="paragraph">
-<p>The mechanism is facilitated by <code>findCommand</code>, <code>findCommandParser</code> and different predicates class. It allows user to find a person with 3 different search patterns. During the execution of find command, 3 search patterns will be executed one by one.</p>
+<p>The mechanism is facilitated by <code>findCommand</code>, <code>findCommandParser</code> and different Predicates classes. It allows user to find a person with 3 different search patterns. During the execution of find command, 3 search patterns will be executed one by one.</p>
 </div>
 <div class="paragraph">
 <p>Given below is the process of executing find command:</p>
 </div>
 <div class="paragraph">
-<p>Step 1. The exact matching: This is a base method of matching string, it&#8217;s implemented by String.equals().</p>
+<p>Step 1. The exact search: This is a base method of matching string. It&#8217;s implemented by String.equals().</p>
 </div>
 <div class="paragraph">
-<p>Step 2. The fuzzy matching: This is based on similarity comparison. First levenshtein distance is used to calculate the edit distance between input keywords and string in people&#8217;s fields. Subsequently, similarity is calculated by s = 1 - Levenshtein_Distance/Max_Length_Of_Two_Strings. The similarity threshold is set to 0.7. If a person’s fields contain keyword which have more than 0.7 similarity comparing to the input keywords, he or she will be returned as fuzzy search result.</p>
+<p>Step 2. The fuzzy search: This is based on similarity comparison. First edit distance between input keywords and string in people&#8217;s fields is calculated based on levenshtein distance algorithm. Subsequently, similarity is calculated by s = 1 - Levenshtein_Distance/Max_Length_Of_Two_Strings. The similarity threshold is set to 0.7. If a person’s fields contain keyword which have more than 0.7 similarity comparing to the input keywords, he or she will be returned in fuzzy search result.</p>
 </div>
 <div class="paragraph">
-<p>Step 1. The exact matching: This is based on regular expression. It could recognize character *. the character * could match any number of characters.</p>
+<p>Step 3. The wildcard search: This is based on regular expression. It could recognize character *. the character \* could match any number of characters of 0-9,a-z or A-Z.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The following code snippet is from TagsContainsKeywordPredicate class. It shows an example of how predicate class works:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">    <span class="annotation">@Override</span>
+    <span class="directive">public</span> <span class="type">boolean</span> test(Person person) {
+        <span class="keyword">return</span> keywords.stream()
+                .anyMatch(keyword -&gt; {
+                    <span class="predefined-type">String</span> name = person.getName().fullName;
+                    <span class="predefined-type">String</span> tags = person.getTagsAsStringNoBracket();
+                    <span class="keyword">if</span> (StringUtil.containsWordIgnoreCase(tags, keyword)) {
+                        <span class="keyword">if</span> (!exactSearchList.contains(name)) {
+                            exactSearchList.add(name);
+                        }
+                        <span class="keyword">return</span> <span class="predefined-constant">true</span>;
+                    }
+                    <span class="keyword">if</span> (StringUtil.matchFuzzySearch(tags, keyword)) {
+                        <span class="keyword">if</span> (!fuzzySearchList.contains(name)) {
+                            fuzzySearchList.add(name);
+                       }
+                        <span class="keyword">return</span> <span class="predefined-constant">true</span>;
+                    }
+                    <span class="keyword">if</span> (StringUtil.matchWildcardSearch(tags, keyword)) {
+                        <span class="keyword">if</span> (!wildcardSearchList.contains(name)) {
+                            wildcardSearchList.add(name);
+                        }
+                        <span class="keyword">return</span> <span class="predefined-constant">true</span>;
+                    }
+                    <span class="keyword">return</span> <span class="predefined-constant">false</span>;
+                });
+    }</code></pre>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -460,12 +498,24 @@ Clear photo to the 3rd person in the UniLA. Photo is set to the default photo.</
 <p>Pros: Easy to implement.</p>
 </li>
 <li>
-<p>Cons: Lower accuracy.</p>
+<p>Cons: Lower accuracy especially when the string is short.</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Different search patterns optimize the 'find' command for different kind of user. They help with user who cannot remember the exact spelling or who are prone to typos.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -475,10 +525,13 @@ Clear photo to the 3rd person in the UniLA. Photo is set to the default photo.</
 <div class="sect3">
 <h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">Current Implementation</a></h4>
 <div class="paragraph">
-<p>The mechanism is facilitated by <code>Photo</code>, <code>PhotoCommand</code> and <code>PhotoCommandParser</code> class. It allows user to add a photo to the person in the contact list.</p>
+<p>The mechanism is facilitated by <code>Photo</code>, <code>PhotoCommand</code> class. It allows user to add a photo to the person in the contact list.</p>
 </div>
 <div class="paragraph">
-<p>Given below is an example usage scenario and how the photo mechanism behaves at each step.</p>
+<p>Given below is the process of executing photo command:</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The command will be checked whether it contains sub command <code>clear</code>. If it is a photo clear command, the photo of the contact list will be set to default photo. The photo command execution is finished. Else, following steps will be executed.</p>
 </div>
 <div class="paragraph">
 <p>Step 1. The input file path will be checked whether the file exists.</p>
@@ -492,11 +545,45 @@ Clear photo to the 3rd person in the UniLA. Photo is set to the default photo.</
 <div class="paragraph">
 <p>Step 4. The photo will be copied to the program and it is saved to the target person.</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>The following code snippet is from PhotoCommand class. It shows an example of how photo command executes:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="keyword">if</span> (photo.getPath().equals(COMMAND_SUB)) {
+    photo.setPath(DEFAULT_PHOTOPATH);
+    Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
+    <span class="predefined-type">String</span> path = personToEdit.getPhoto().getPath();
+    <span class="predefined-type">File</span> file = <span class="keyword">new</span> <span class="predefined-type">File</span>(path);
+    file.delete();
+
+    } <span class="keyword">else</span> {
+    <span class="keyword">if</span> (!isValidPhotoPath(photo.getPath())) {
+         <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(MESSAGE_INVALID_PHOTOPATH);
+    }
+    <span class="keyword">if</span> (!isImage(photo.getPath())) {
+         <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(MESSAGE_FILE_NOT_IMAGE);
+    }
+    <span class="keyword">if</span> (!isPhotoSizeWithinRange(photo.getPath())) {
+         <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(MESSAGE_SIZE_EXCEED);
+    }
+
+    <span class="predefined-type">String</span> user = <span class="predefined-type">System</span>.getProperty(<span class="string"><span class="delimiter">&quot;</span><span class="content">user.name</span><span class="delimiter">&quot;</span></span>);
+    <span class="predefined-type">String</span> dir = <span class="string"><span class="delimiter">&quot;</span><span class="content">data/</span><span class="delimiter">&quot;</span></span>;
+    <span class="predefined-type">String</span> copyPath = FileUtil.copyFile(photo.getPath(), <span class="predefined-type">String</span>.format(dir, user));
+    photo.setPath(copyPath);
+    }</code></pre>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">Design Considerations</a></h4>
 <div class="sect4">
-<h5 id="aspect-how-photo-is-loaded"><a class="link" href="#aspect-how-photo-is-loaded">Aspect: How photo is loaded</a></h5>
+<h5 id="aspect-how-photo-is-stored-in-unila"><a class="link" href="#aspect-how-photo-is-stored-in-unila">Aspect: How photo is stored in UniLA</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -504,7 +591,7 @@ Clear photo to the 3rd person in the UniLA. Photo is set to the default photo.</
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: The address book will not be affect if user moves, renames or deletes the photo in the original path.</p>
+<p>Pros: The address book will not be affect if user moves, renames or deletes the photo in the original path. Stability of the program is ensured.</p>
 </li>
 <li>
 <p>Cons: Consume more memory because the photo is copied to the program.</p>
@@ -513,14 +600,14 @@ Clear photo to the 3rd person in the UniLA. Photo is set to the default photo.</
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> Save the original path</p>
+<p><strong>Alternative 2:</strong> Save the path and load the photo from the path every time when user opens the app.</p>
 <div class="ulist">
 <ul>
 <li>
 <p>Pros: Use less memory. Easy to implement.</p>
 </li>
 <li>
-<p>Cons: The photo will be lost if user moves, renames or deletes the photo in the original path.</p>
+<p>Cons: The photo will be not be displayed if user moves, renames or deletes the photo in the original path.</p>
 </li>
 </ul>
 </div>
@@ -540,4 +627,4 @@ Clear photo to the 3rd person in the UniLA. Photo is set to the default photo.</
 <p><em>{Optionally, you may include other projects in your portfolio.}</em></p>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-12 18:02:17 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-13 03:28:51 UTC</div></div></div></body></html>

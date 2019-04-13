@@ -258,7 +258,7 @@ Edits the name of the 2nd person to be <code>Betsy Crower</code> and clears all 
 <div class="sect2">
 <h3 id="locating-persons-by-any-field-code-find-code"><a class="link" href="#locating-persons-by-any-field-code-find-code">3.6. Locating persons by any field: <code>find</code></a></h3>
 <div class="paragraph">
-<p>Finds persons whose fields contain any of the given keywords.<br>
+<p>Finds persons whose fields contain any of the given keywords.
 User can search with or without prefix.
 When search without prefix, any person whose fields contain any keywords will be returned.
 When search with prefix, person who contains all keywords in his or her corresponding fields will be returned.</p>
@@ -298,12 +298,12 @@ When search with prefix, person who contains all keywords in his or her correspo
 <p>Fuzzy keyword match - Matches the input keyword to people&#8217;s fields that have higher than 0.7 similarity. The similarity is calculated based on Levenshtein Distance. Further explanation is in developer guide.</p>
 </li>
 <li>
-<p>Wildcard keyword match – Matches the input keyword with wildcard character *. * represents any number of characters.</p>
+<p>Wildcard keyword match – Matches the input keyword with wildcard character *. * represents any number of characters of 0-9, a-z or A-Z.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p><strong>Search results are displayed in the following format:</strong><br>
+<p><strong>Searching results are displayed in the following format:</strong><br>
 n persons listed:<br>
  Exact Search:<br>
  [NAME]…<br>
@@ -319,9 +319,9 @@ n persons listed:<br>
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
- There are three parts of executing 'find' command. First The input keywords are searched with exact string match. If it is not matched, then they are processed by fuzzy search. If fuzzy search still not matches, they will be searched by wildcard match.
+ There are three parts of executing 'find' command. The input keywords are first searched with exact string match, then fuzzy search, and finally wildcard search.
  Any results displayed in the previous searching stage will not be shown in the next searching stage.<br>
- For example, if person Alice is found in exact string match, she will be displayed in exact search result and will not be displayed in fuzzy search result. This is to avoid message duplication.
+ For example, if person Alice is found in exact string match, she will not be displayed in fuzzy search result. This is to avoid message duplication.
 </td>
 </tr>
 </table>
@@ -333,7 +333,7 @@ n persons listed:<br>
 <ul>
 <li>
 <p><code>find victoria</code><br>
-In exact search: Returns any person whose fields contain keyword <code>victoria</code> in exact search. For example, person whose name is Victoria or person who live in Victoria Street.<br>
+In exact search: Returns any person whose fields contain keyword <code>victoria</code> in exact search. For example, person whose name is <code>Victoria</code> or person who lives in <code>Victoria Street</code>.<br>
 In fuzzy search: Returns any person whose fields have keywords similar to <code>victoria</code>. For example, person whose tags contain keyword Victory.<br></p>
 </li>
 <li>
@@ -347,24 +347,12 @@ In exact search: Returns any person whose tags contain keywords <code>owemoney</
 In fuzzy search: Returns any person whose tags have keywords similar to to <code>owemoney</code> <strong>or</strong> <code>friends</code><br></p>
 </li>
 <li>
-<p><code>find <strong>@gmail.com</code><br>
-In exact search: Returns any person whose fields contain keywords <code></strong>@gmail.com</code><br>
-In fuzzy search: Returns any person whose fields have keywords similar to <code><strong>@gmail.com</code><br>
-In wildcard search: Returns any person whose fields have keywords that match regex <code></strong>@gmail.com</code><br></p>
+<p><code>find *@gmail.com</code><br>
+In exact search: Returns any person whose fields contain keywords <code>\*@gmail.com</code><br>
+In fuzzy search: Returns any person whose fields have keywords similar to <code>*@gmail.com</code><br>
+In wildcard search: Returns any person whose fields have keywords that match regex <code>\*@gmail.com</code><br></p>
 </li>
 </ul>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Different search patterns optimize the 'find' command for different kind of user. They help with user who cannot remember the exact spelling or who are prone to typos.
-</td>
-</tr>
-</table>
 </div>
 </div>
 <div class="sect2">
@@ -592,10 +580,13 @@ Format1: <code>photo INDEX clear</code>+</p>
 <p>The index refers to the index number shown in the most recent listing.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index must be a positive integer 1, 2, 3, &#8230;&#8203;</p>
 </li>
 <li>
 <p>The given path must be a valid image path.</p>
+</li>
+<li>
+<p>The size of the photo should be smaller than 20MB.</p>
 </li>
 </ul>
 </div>
@@ -611,10 +602,22 @@ Format1: <code>photo INDEX clear</code>+</p>
 <code>photo 3 /users/alice/desktop/photo.png</code> (in mac)<br>
 <code>photo 3 C:\Users\william\Desktop\photo.jpg</code> (in windows)<br>
 Adds photo to the 3rd person in the UniLA.<br>
-<code>photo 3 clear</code> (in mac)<br>
+<code>photo 3 clear</code><br>
 Clear photo to the 3rd person in the UniLA. Photo is set to the default photo.</p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The added photo will be copied to the program. Thus, if you move, rename or delete the photo in the input path, UniLA will not be affected.
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -900,20 +903,11 @@ Edits the venue of the 2nd event to be <code>com2 level4</code>.</p>
 <div class="sect2">
 <h3 id="locating-events-by-any-field-code-finde-code"><a class="link" href="#locating-events-by-any-field-code-finde-code">4.7. Locating events by any field: <code>findE</code></a></h3>
 <div class="paragraph">
-<p>There are three search pattern for <code>findE</code> command.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>* 1. Finds events whose fields contain any of the given keywords.<br>
-User can search with or without prefix.
-When search without prefix, any events whose fields contain any keywords will be returned.
-When search with prefix, event which contains all keywords in the corresponding fields will be returned.</p>
-</li>
-</ul>
+<p>Finds events whose fields contain any of the given keywords.
+User can search with or without prefix. When search without prefix, any event whose fields contain any keywords will be returned. When search with prefix, event which contains all keywords in the corresponding fields will be returned.</p>
 </div>
 <div class="paragraph">
-<p>Format1: <code>find KEYWORD [MORE_KEYWORDS]</code>
+<p>Format1: <code>find KEYWORD [MORE_KEYWORDS]</code><br>
 Format2: <code>find prefix/KEYWORD, [MORE KEYWORDS]</code></p>
 </div>
 <div class="sidebarblock">
@@ -945,8 +939,8 @@ Format2: <code>find prefix/KEYWORD, [MORE KEYWORDS]</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>findE meeting</code><br>
-Returns any events having fields contain keywords <code>meeting</code>. For example, events 'company meeting' and 'group meeting' will be returned.</p>
+<p><code>findE google</code><br>
+Returns any events having fields contain keywords <code>meeting</code>. For example, event whose name is 'Google talk' or event whose venue is 'group meeting' will be returned.</p>
 </li>
 <li>
 <p><code>findE pgp library</code><br>
@@ -959,11 +953,11 @@ Returns any event having label contains keyword <code>important</code>.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>There are two sub command of <code>findE</code> command which is <code>findE time/</code> and <code>findE duration/</code>:
-* * 2. <code>findE time/</code> finds events whose starting date before, equal to or after the searching date. Alternatively user can use ytd, today or tmr to search for events whose starting date is yesterday, today or tomorrow.</p>
+<p>There are two sub command of <code>findE</code> command which are <code>findE time/</code> and <code>findE duration/</code>:<br>
+<strong>1. <code>findE time/</code> finds events whose starting date before, equal to or after the searching date. Alternatively user can use ytd, today or tmr to search for events whose starting date is yesterday, today or tomorrow.</strong></p>
 </div>
 <div class="paragraph">
-<p>Format3: <code>findE time/operatorDATE</code>
+<p>Format3: <code>findE time/operatorDATE</code><br>
 Format4: <code>findE time/alias(ytd, today or tmr)</code></p>
 </div>
 <div class="sidebarblock">
@@ -992,24 +986,20 @@ Format4: <code>findE time/alias(ytd, today or tmr)</code></p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>findE time/&gt;2019-04-01</code><br>
+Returns all the events whose starting dates are after 2019,4,1</p>
+</li>
+<li>
 <p><code>findE time/tmr</code><br>
 Returns all the events start in tomorrow</p>
-</li>
-<li>
-<p><code>findE time/&lt;2019-04-30</code><br>
-Returns all the events whose starting dates are before 2019,4,30</p>
-</li>
-<li>
-<p><code>findE time/=2019–04-01</code><br>
-Returns all the events whose starting dates are 2019,4,30</p>
-</li>
-<li>
-<p>* 3. <code>findE duration/</code> finds events whose duration is smaller, equal to or larger than the searching period</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Format4: <code>findE duration/operatorHOURS</code></p>
+<p><strong>3. <code>findE duration/</code> finds events whose duration is smaller, equal to or larger than the searching period.</strong></p>
+</div>
+<div class="paragraph">
+<p>Format5: <code>findE duration/operatorHOURS</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -1436,4 +1426,4 @@ e.g. <code>findE duration/&lt;3</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-12 18:02:17 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-13 03:28:51 UTC</div></div></div></body></html>
