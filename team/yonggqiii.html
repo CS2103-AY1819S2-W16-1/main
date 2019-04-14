@@ -192,7 +192,7 @@
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Note</strong>: All fields are optional, but at least one valid person must be specified.</p>
+<p><strong>Note</strong>: All fields are optional, but at least two valid persons must be specified.</p>
 </div>
 <div class="paragraph">
 <p><strong>Note</strong>: Entering multiple tags create and/or relationships, more specifically, if a user specifies two tags, <code>tagone</code> and <code>tagtwo</code>, then every person who has <code>tagone</code> <strong>and/or</strong> <code>tagtwo</code> will be retrieved (think of it as a union of two sets, not the intersection).</p>
@@ -297,8 +297,8 @@ This creates a 2h meeting event including the 1st, 3rd contact in the list, and 
 <div class="ulist">
 <ul>
 <li>
-<p><code>meet 1 n/Meetup with Alice</code><br>
-Creates a 2h meeting event with the first person in the contact list, and sets the event name to be <code>Meetup with Alice</code>.</p>
+<p><code>meet 1 2 n/Meetup with Alice</code><br>
+Creates a 2h meeting event with the first and second persons in the contact list, and sets the event name to be <code>Meetup with Alice</code>.</p>
 </li>
 </ul>
 </div>
@@ -308,8 +308,8 @@ Creates a 2h meeting event with the first person in the contact list, and sets t
 <div class="ulist">
 <ul>
 <li>
-<p><code>meet 1 d/We&#8217;re going out for breakfast, then heading to Starbucks for a discussion on our next project.</code><br>
-Creates a 2h meeting with the first person in the contact list, and sets the description of the meeting to the above description.</p>
+<p><code>meet 1 2 d/We&#8217;re going out for breakfast, then heading to Starbucks for a discussion on our next project.</code><br>
+Creates a 2h meeting with the first and second persons in the contact list, and sets the description of the meeting to the above description.</p>
 </li>
 </ul>
 </div>
@@ -319,8 +319,8 @@ Creates a 2h meeting with the first person in the contact list, and sets the des
 <div class="ulist">
 <ul>
 <li>
-<p><code>meet 1 v/COM1-B1111</code><br>
-Creates a 2h meeting with the first person in the contact list, and sets the venue of the meeting to <code>COM1-B1111</code>.</p>
+<p><code>meet 1 2 v/COM1-B1111</code><br>
+Creates a 2h meeting with the first and second persons in the contact list, and sets the venue of the meeting to <code>COM1-B1111</code>.</p>
 </li>
 </ul>
 </div>
@@ -330,8 +330,8 @@ Creates a 2h meeting with the first person in the contact list, and sets the ven
 <div class="ulist">
 <ul>
 <li>
-<p><code>meet 1 l/meal</code><br>
-Creates a 2h meeting with the first person in the contact list, and sets the label of the meeting to be <code>meal</code>.</p>
+<p><code>meet 1 2 l/meal</code><br>
+Creates a 2h meeting with the first and second persons in the contact list, and sets the label of the meeting to be <code>meal</code>.</p>
 </li>
 </ul>
 </div>
@@ -401,8 +401,8 @@ Creates a 2h meeting with the second person in the contact list and all contacts
 <div class="ulist">
 <ul>
 <li>
-<p><code>meet 1 duration/0 2 0 0</code><br>
-Creates a 2h meeting with the first person in the contact list.</p>
+<p><code>meet 1 2 duration/0 2 0 0</code><br>
+Creates a 2h meeting with the first and second persons in the contact list.</p>
 </li>
 </ul>
 </div>
@@ -412,8 +412,8 @@ Creates a 2h meeting with the first person in the contact list.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>meet 1 duration/1 2 3 40</code><br>
-Creates a 1-day, 2-hour, 3-minute and 40-second long meeting event with the first person in the contact list.</p>
+<p><code>meet 1 2 duration/1 2 3 40</code><br>
+Creates a 1-day, 2-hour, 3-minute and 40-second long meeting event with the first and second persons in the contact list.</p>
 </li>
 </ul>
 </div>
@@ -423,8 +423,8 @@ Creates a 1-day, 2-hour, 3-minute and 40-second long meeting event with the firs
 <div class="ulist">
 <ul>
 <li>
-<p><code>meet 1 duration/0 1 -1 0</code><br>
-Creates a 59-minute meeting event with the first person in the contact list (1 hour and -1 minutes equates to 59 minutes).</p>
+<p><code>meet 1 2 duration/0 1 -1 0</code><br>
+Creates a 59-minute meeting event with the first and second persons in the contact list (1 hour and -1 minutes equates to 59 minutes).</p>
 </li>
 </ul>
 </div>
@@ -480,8 +480,8 @@ Creates a 59-minute meeting event with the first person in the contact list (1 h
 <div class="ulist">
 <ul>
 <li>
-<p><code>meet 1 s/2019-05-26 12:00:00</code><br>
-creates a new 2-hour long meeting event with the first person of the contact list, with the earliest possible start time of the event to be 26 May 2019 at 12pm, unless the time of entering the command is after 26 May 2019 11am.</p>
+<p><code>meet 1 2 s/2019-05-26 12:00:00</code><br>
+creates a new 2-hour long meeting event with the first and second persons of the contact list, with the earliest possible start time of the event to be 26 May 2019 at 12pm, unless the time of entering the command is after 26 May 2019 11am.</p>
 </li>
 </ul>
 </div>
@@ -491,8 +491,8 @@ creates a new 2-hour long meeting event with the first person of the contact lis
 <div class="ulist">
 <ul>
 <li>
-<p><code>meet 1 e/2019-04-01 22:30:00</code><br>
-creates a new 2-hour long meeting event with the first person of the contact list, with the latest possible end time of the event to be 1st April 2019 at 10.30pm. If UniLA cannot find a suitable timeslot before this stated date and time, UniLA will prompt that no event can be made.</p>
+<p><code>meet 1 2 e/2019-04-01 22:30:00</code><br>
+creates a new 2-hour long meeting event with the first and second persons of the contact list, with the latest possible end time of the event to be 1st April 2019 at 10.30pm. If UniLA cannot find a suitable timeslot before this stated date and time, UniLA will prompt that no event can be made.</p>
 </li>
 </ul>
 </div>
@@ -502,8 +502,8 @@ creates a new 2-hour long meeting event with the first person of the contact lis
 <div class="ulist">
 <ul>
 <li>
-<p><code>meet 1 block/!22:59 02:00</code><br>
-creates a new 2-hour long meeting with the first person of the contact list, and the event must not fall within 10.59pm to 2am of the next day. If UniLA cannot find a suitable timeslot that falls within this block (likely because the duration of the event exceeds the duration permitted by this block), then UniLA will prompt that no event can be made.</p>
+<p><code>meet 1 2 block/!22:59 02:00</code><br>
+creates a new 2-hour long meeting with the first and second persons of the contact list, and the event must not fall within 10.59pm to 2am of the next day. If UniLA cannot find a suitable timeslot that falls within this block (likely because the duration of the event exceeds the duration permitted by this block), then UniLA will prompt that no event can be made.</p>
 </li>
 </ul>
 </div>
@@ -513,8 +513,8 @@ creates a new 2-hour long meeting with the first person of the contact list, and
 <div class="ulist">
 <ul>
 <li>
-<p><code>meet 1 s/2019-05-01 00:00:00 e/2019-05-07 00:00:00 block/school</code><br>
-creates a new 2-hour long meeting with the first person of the contact list, and the event must start at or after 1st May 2019 at 12am, must end at or before 7th May 2019 at 12am, and must fall within school hours, i.e. within 8am to 6pm of the same day.</p>
+<p><code>meet 1 2 s/2019-05-01 00:00:00 e/2019-05-07 00:00:00 block/school</code><br>
+creates a new 2-hour long meeting with the first and second persons of the contact list, and the event must start at or after 1st May 2019 at 12am, must end at or before 7th May 2019 at 12am, and must fall within school hours, i.e. within 8am to 6pm of the same day.</p>
 </li>
 </ul>
 </div>
@@ -621,6 +621,9 @@ indicates that the new meeting event must not fall within night time, defined to
 <ul>
 <li>
 <p>There must be at least one valid index or one valid tag entered.</p>
+</li>
+<li>
+<p>There must be at least two people forming the meeting</p>
 </li>
 <li>
 <p>The rest of the fields are optional.</p>
@@ -739,6 +742,9 @@ indicates that the new meeting event must not fall within night time, defined to
 <p>There must be at least one valid index or one valid tag entered.</p>
 </li>
 <li>
+<p>There must be at least two people entered to form a meeting event.</p>
+</li>
+<li>
 <p>The rest of the fields are optional.</p>
 </li>
 </ul>
@@ -804,13 +810,13 @@ indicates that the new meeting event must not fall within night time, defined to
 <p>all indices are valid</p>
 </li>
 <li>
+<p>at least two valid people were entered</p>
+</li>
+<li>
 <p>all other errors caused by invalid arguments will be thrown by ParserUtil and ParserUtilForEvent</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>The parser removes duplicate indices by using a <code>java.util.HashSet</code> instance. The Index class has already overriden <code>hashCode()</code>.</p>
 </li>
 <li>
 <p>All the fields are passed as arguments into the constructor of <code>MeetCommand</code>, which stores all arguments as instance fields.</p>
@@ -846,6 +852,128 @@ indicates that the new meeting event must not fall within night time, defined to
 <img src="../images/MeetCommandSequenceDiagram.png" alt="MeetCommandSequenceDiagram" width="1000">
 </div>
 </div>
+<div class="paragraph">
+<p>The loop portion is not actually implemented with a <code>for</code> or <code>while</code> loop. Instead, a <code>Stream</code> was used as it was able to <code>filter</code> and <code>reduce</code> each event sequentially.</p>
+</div>
+<div class="paragraph">
+<p>The following describes the logic behind points 4 till 9.</p>
+</div>
+<div class="paragraph">
+<p>Suppose the user enters <code>meet 1 2 3 s/2019-05-14 03:00 duration/0 4 0 0 block/09:30 18:00</code>. In this case, the indices, tags, name, description, venue and label are trivial to the logic. Further suppose the user enters this command at some date and time before 03:00 on 14 May 2019.</p>
+</div>
+<div class="paragraph">
+<p>In this user&#8217;s current events list, there are five events, all involving either persons 1, 2 or 3. These events are "in the way". They are depicted as red boxes in the following diagrams. All other events in the list have been filtered away by the <code>Stream</code>.</p>
+</div>
+<div class="paragraph">
+<p>The yellow region signifies the block entered by the user, i.e. the block of time which the event <strong>must</strong> fall in.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MeetCommandLogic1.png" alt="MeetCommandLogic1" width="1000">
+</div>
+</div>
+<div class="paragraph">
+<p>Because the start time is after the next hour from the time the command was entered, an event with a duration of 4 hours that starts on 3am on 14 May 2019 is created. This is labeled as <code>meeting</code> in light blue below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MeetCommandLogic2.png" alt="MeetCommandLogic2" width="1000">
+</div>
+</div>
+<div class="paragraph">
+<p><code>meeting</code> is first transformed to fit in the first block. This is done by the <code>transformEventToFitBlock(Event e)</code> method.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MeetCommandLogic3.png" alt="MeetCommandLogic3" width="1000">
+</div>
+</div>
+<div class="paragraph">
+<p>At this point, all existing events in the events list (shown in red) will be piped into a <code>Stream</code> object. This <code>stream</code> is filtered, such that all events that do not have <strong>any</strong> of the proposed meeting participants are filtered out.</p>
+</div>
+<div class="paragraph">
+<p>In this case, because all events in the user&#8217;s events list involve either persons 1, 2 or 3, none of them are filtered out. Now, <code>reduce</code> is applied on this <code>Stream</code> object.</p>
+</div>
+<div class="paragraph">
+<p>The following is the code snippet for the <code>reduce</code> method.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">.reduce(meeting, (x, y) -&gt; {
+    LocalDateTime xEnd = toDateTime(x.getEndDateTime());
+    LocalDateTime yStart = toDateTime(y.getStartDateTime());
+    LocalDateTime yEnd = toDateTime(y.getEndDateTime());
+    <span class="keyword">if</span> (toDateTime(x.getStartDateTime()).isAfter(yEnd)
+            || !xEnd.isAfter(yStart)) {
+        <span class="keyword">return</span> x;
+
+    }
+    LocalDateTime start = yEnd;
+    <span class="keyword">return</span> transformEventToFitBlock(<span class="keyword">new</span> <span class="predefined-type">Event</span>(name, description, venue,
+            <span class="keyword">new</span> DateTime(start.format(DateTime.DATE_TIME_FORMATTER)),
+            <span class="keyword">new</span> DateTime(start.plus(duration).format(DateTime.DATE_TIME_FORMATTER)), label));
+});</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this case, <code>x</code> will always be the <code>meeting</code> event, shown in blue. Event <code>y</code> will be highlighted green.</p>
+</div>
+<div class="paragraph">
+<p>Because the <code>stream</code> has already been sorted in order of start <code>DateTime`s, `y</code> will be selected in order of left to right in the diagram.</p>
+</div>
+<div class="paragraph">
+<p>The logic behind <code>reduce</code> is as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If <code>x</code> does not clash with <code>y</code>, then <code>(x, y)</code> reduces to <code>x</code>.</p>
+</li>
+<li>
+<p>Else, create a new meeting that starts at the end <code>DateTime</code> of y, then transform it to fit the block.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Pictorially, it will look like the following.</p>
+</div>
+<div class="paragraph">
+<p>The left-most event is selected as <code>y</code>. In the first use of <code>reduce</code>, the <code>identity</code> was set to be the initial <code>meeting:Event</code>, in blue.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MeetCommandLogic4.png" alt="MeetCommandLogic4" width="1000">
+</div>
+</div>
+<div class="paragraph">
+<p>Because the event in blue does not clash with the event in green, both events simply reduce to the one in blue, and is deleted. The next left-most event is selected as the next <code>y</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MeetCommandLogic5.png" alt="MeetCommandLogic5" width="1000">
+</div>
+</div>
+<div class="paragraph">
+<p>In this case, the event in blue clashes with the event in green. Thus, a new event, with a duration of 4 hours (same as before), that starts at the end of <code>y</code>, is created. This event is then transformed to fit the block, which in this case already does. The old blue and green events are reduced to this new event.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MeetCommandLogic6.png" alt="MeetCommandLogic6" width="1000">
+</div>
+</div>
+<div class="paragraph">
+<p>Here, the event in blue clashes with the event in green. A new event with a duration of 4 hours, that starts at the end of <code>y</code>, is created. This event is then transformed to fit the block, in this case, it is pushed all the way to start at 09:30 the next day.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MeetCommandLogic6a.png" alt="MeetCommandLogic6a" width="1000">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MeetCommandLogic7.png" alt="MeetCommandLogic7" width="1000">
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -858,4 +986,4 @@ indicates that the new meeting event must not fall within night time, defined to
 <p><em>{Optionally, you may include other projects in your portfolio.}</em></p>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 16:31:07 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 22:18:10 UTC</div></div></div></body></html>

@@ -1304,6 +1304,9 @@ To achieve this function and other person-event related functions, a unidirectio
 <p>There must be at least one valid index or one valid tag entered.</p>
 </li>
 <li>
+<p>There must be at least two people entered to form a meeting event.</p>
+</li>
+<li>
 <p>The rest of the fields are optional.</p>
 </li>
 </ul>
@@ -1369,13 +1372,13 @@ To achieve this function and other person-event related functions, a unidirectio
 <p>all indices are valid</p>
 </li>
 <li>
+<p>at least two valid people were entered</p>
+</li>
+<li>
 <p>all other errors caused by invalid arguments will be thrown by ParserUtil and ParserUtilForEvent</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>The parser removes duplicate indices by using a <code>java.util.HashSet</code> instance. The Index class has already overriden <code>hashCode()</code>.</p>
 </li>
 <li>
 <p>All the fields are passed as arguments into the constructor of <code>MeetCommand</code>, which stores all arguments as instance fields.</p>
@@ -1409,6 +1412,128 @@ To achieve this function and other person-event related functions, a unidirectio
 <div class="imageblock">
 <div class="content">
 <img src="images/MeetCommandSequenceDiagram.png" alt="MeetCommandSequenceDiagram" width="1000">
+</div>
+</div>
+<div class="paragraph">
+<p>The loop portion is not actually implemented with a <code>for</code> or <code>while</code> loop. Instead, a <code>Stream</code> was used as it was able to <code>filter</code> and <code>reduce</code> each event sequentially.</p>
+</div>
+<div class="paragraph">
+<p>The following describes the logic behind points 4 till 9.</p>
+</div>
+<div class="paragraph">
+<p>Suppose the user enters <code>meet 1 2 3 s/2019-05-14 03:00 duration/0 4 0 0 block/09:30 18:00</code>. In this case, the indices, tags, name, description, venue and label are trivial to the logic. Further suppose the user enters this command at some date and time before 03:00 on 14 May 2019.</p>
+</div>
+<div class="paragraph">
+<p>In this user&#8217;s current events list, there are five events, all involving either persons 1, 2 or 3. These events are "in the way". They are depicted as red boxes in the following diagrams. All other events in the list have been filtered away by the <code>Stream</code>.</p>
+</div>
+<div class="paragraph">
+<p>The yellow region signifies the block entered by the user, i.e. the block of time which the event <strong>must</strong> fall in.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/MeetCommandLogic1.png" alt="MeetCommandLogic1" width="1000">
+</div>
+</div>
+<div class="paragraph">
+<p>Because the start time is after the next hour from the time the command was entered, an event with a duration of 4 hours that starts on 3am on 14 May 2019 is created. This is labeled as <code>meeting</code> in light blue below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/MeetCommandLogic2.png" alt="MeetCommandLogic2" width="1000">
+</div>
+</div>
+<div class="paragraph">
+<p><code>meeting</code> is first transformed to fit in the first block. This is done by the <code>transformEventToFitBlock(Event e)</code> method.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/MeetCommandLogic3.png" alt="MeetCommandLogic3" width="1000">
+</div>
+</div>
+<div class="paragraph">
+<p>At this point, all existing events in the events list (shown in red) will be piped into a <code>Stream</code> object. This <code>stream</code> is filtered, such that all events that do not have <strong>any</strong> of the proposed meeting participants are filtered out.</p>
+</div>
+<div class="paragraph">
+<p>In this case, because all events in the user&#8217;s events list involve either persons 1, 2 or 3, none of them are filtered out. Now, <code>reduce</code> is applied on this <code>Stream</code> object.</p>
+</div>
+<div class="paragraph">
+<p>The following is the code snippet for the <code>reduce</code> method.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">.reduce(meeting, (x, y) -&gt; {
+    LocalDateTime xEnd = toDateTime(x.getEndDateTime());
+    LocalDateTime yStart = toDateTime(y.getStartDateTime());
+    LocalDateTime yEnd = toDateTime(y.getEndDateTime());
+    <span class="keyword">if</span> (toDateTime(x.getStartDateTime()).isAfter(yEnd)
+            || !xEnd.isAfter(yStart)) {
+        <span class="keyword">return</span> x;
+
+    }
+    LocalDateTime start = yEnd;
+    <span class="keyword">return</span> transformEventToFitBlock(<span class="keyword">new</span> <span class="predefined-type">Event</span>(name, description, venue,
+            <span class="keyword">new</span> DateTime(start.format(DateTime.DATE_TIME_FORMATTER)),
+            <span class="keyword">new</span> DateTime(start.plus(duration).format(DateTime.DATE_TIME_FORMATTER)), label));
+});</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this case, <code>x</code> will always be the <code>meeting</code> event, shown in blue. Event <code>y</code> will be highlighted green.</p>
+</div>
+<div class="paragraph">
+<p>Because the <code>stream</code> has already been sorted in order of start <code>DateTime`s, `y</code> will be selected in order of left to right in the diagram.</p>
+</div>
+<div class="paragraph">
+<p>The logic behind <code>reduce</code> is as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If <code>x</code> does not clash with <code>y</code>, then <code>(x, y)</code> reduces to <code>x</code>.</p>
+</li>
+<li>
+<p>Else, create a new meeting that starts at the end <code>DateTime</code> of y, then transform it to fit the block.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Pictorially, it will look like the following.</p>
+</div>
+<div class="paragraph">
+<p>The left-most event is selected as <code>y</code>. In the first use of <code>reduce</code>, the <code>identity</code> was set to be the initial <code>meeting:Event</code>, in blue.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/MeetCommandLogic4.png" alt="MeetCommandLogic4" width="1000">
+</div>
+</div>
+<div class="paragraph">
+<p>Because the event in blue does not clash with the event in green, both events simply reduce to the one in blue, and is deleted. The next left-most event is selected as the next <code>y</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/MeetCommandLogic5.png" alt="MeetCommandLogic5" width="1000">
+</div>
+</div>
+<div class="paragraph">
+<p>In this case, the event in blue clashes with the event in green. Thus, a new event, with a duration of 4 hours (same as before), that starts at the end of <code>y</code>, is created. This event is then transformed to fit the block, which in this case already does. The old blue and green events are reduced to this new event.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/MeetCommandLogic6.png" alt="MeetCommandLogic6" width="1000">
+</div>
+</div>
+<div class="paragraph">
+<p>Here, the event in blue clashes with the event in green. A new event with a duration of 4 hours, that starts at the end of <code>y</code>, is created. This event is then transformed to fit the block, in this case, it is pushed all the way to start at 09:30 the next day.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/MeetCommandLogic6a.png" alt="MeetCommandLogic6a" width="1000">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/MeetCommandLogic7.png" alt="MeetCommandLogic7" width="1000">
 </div>
 </div>
 </div>
@@ -3199,4 +3324,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 16:31:07 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 22:18:10 UTC</div></div></div></body></html>
