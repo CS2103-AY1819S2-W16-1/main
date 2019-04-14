@@ -36,10 +36,11 @@
 <li><a href="#photo-feature">3.5. Photo feature</a></li>
 <li><a href="#event-list-component">3.6. Event list component</a></li>
 <li><a href="#connect-feature">3.7. Connect feature</a></li>
-<li><a href="#automatic-reminder">3.8. Automatic Reminder</a></li>
-<li><a href="#meeting-planner">3.9. Meeting Planner</a></li>
-<li><a href="#logging">3.10. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.11. Configuration</a></li>
+<li><a href="#reminder-component">3.8. Reminder Component</a></li>
+<li><a href="#reminder-feature">3.9. Reminder Feature</a></li>
+<li><a href="#meeting-planner">3.10. Meeting Planner</a></li>
+<li><a href="#logging">3.11. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.12. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -1267,20 +1268,14 @@ To achieve this function and other person-event related functions, a unidirectio
 </div>
 </div>
 <div class="sect2">
-<h3 id="automatic-reminder"><a class="link" href="#automatic-reminder">3.8. Automatic Reminder</a></h3>
+<h3 id="reminder-component"><a class="link" href="#reminder-component">3.8. Reminder Component</a></h3>
 <div class="paragraph">
-<p>The mechanism is supported by the <code>reminder</code> and`reminderList` class. It allows users to have an automatically generated reminder, which will pop in app 2 minutes before event start time.
+<p>The mechanism is supported by the <code>reminder</code> and`reminderList` class. It allows users to add reminders, which will pop in app certain interval before event start time.
 <code>reminderList</code> will keep track of all <code>reminder</code>.
-The <code>reminder</code> will be deleted after 3 minutes it shows on the screen.
-To achieve this function, another thread is created as the sequence diagram shown below.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/reminderListSequenceDiagram.png" alt="reminderListSequenceDiagram" width="800">
-</div>
+<code>reminder</code> class contains <code>Unit</code>, <code>Interval</code> to facilitate the constructor building.</p>
 </div>
 <div class="sect3">
-<h4 id="aspect-how-to-implement-automatic-reminder"><a class="link" href="#aspect-how-to-implement-automatic-reminder">3.8.1. Aspect: How to implement automatic reminder</a></h4>
+<h4 id="aspect-how-to-implement-reminder"><a class="link" href="#aspect-how-to-implement-reminder">3.8.1. Aspect: How to implement reminder</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1347,7 +1342,59 @@ To achieve this function, another thread is created as the sequence diagram show
 </div>
 </div>
 <div class="sect2">
-<h3 id="meeting-planner"><a class="link" href="#meeting-planner">3.9. Meeting Planner</a></h3>
+<h3 id="reminder-feature"><a class="link" href="#reminder-feature">3.9. Reminder Feature</a></h3>
+<div class="paragraph">
+<p>The mechanism is supported by <code>ReminderCheck</code>,<code>AddR</code> and <code>AddR parser</code> classes. It allows users to create a reminder in certain interval before event start time.
+And the reminder will pop inside app at that reminding time. Also, it will disappear after showing up for one minute.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how the <code>AddR</code> reminder behaves.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user lists events in address and select the event that the user wants UniLA to remind.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. User run command <code>addR 2 t/4 u/min</code>, which will let UniLA add the one 4min-before-starttime reminder to the second event.</p>
+</div>
+<div class="paragraph">
+<p>Step 3. When the time is up, the reminder pop up under <code>listR</code> model.</p>
+</div>
+<div class="paragraph">
+<p>Step 4. After showing up for 1 minute, the reminder will be automatically deleted from the reminder list.</p>
+</div>
+<div class="sect3">
+<h4 id="how-it-works"><a class="link" href="#how-it-works">3.9.1. How it works:</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>AddRCommandParser parses <code>addR</code> command. The AddRCommandParser will ensure the interval unit and to check possible exceptions.</p>
+</li>
+<li>
+<p>Interval and event will be passed to AddRCommand. AddRCommand touched model to create new reminder in reminder list.</p>
+</li>
+<li>
+<p>Another thread named <code>reminderCheck</code> will be running at the same time. It will check when to pop up the reminder, and when to make it disappear by comparing <code>the starting time - interval</code> with <code>current time</code>.</p>
+</li>
+<li>
+<p>Reminder which satisfies the time requirement will pop up under <code>listR</code> model.</p>
+</li>
+<li>
+<p>Reminder will be deleted from reminder list after it shows up for 1 minute.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To achieve the reminder check function, another thread is created as the sequence diagram shown below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/reminderListSequenceDiagram.png" alt="reminderListSequenceDiagram" width="800">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="meeting-planner"><a class="link" href="#meeting-planner">3.10. Meeting Planner</a></h3>
 <div class="paragraph">
 <p>The mechanism is supported by the MeetCommand class. It allows users to create and store meeting events by automatically finding suitable timeslots to meet.</p>
 </div>
@@ -1364,7 +1411,7 @@ To achieve this function, another thread is created as the sequence diagram show
 <p>Step 3. A list of possible events and the center location will be shown for the user to add.</p>
 </div>
 <div class="sect3">
-<h4 id="how-it-works"><a class="link" href="#how-it-works">3.9.1. How it works:</a></h4>
+<h4 id="how-it-works-2"><a class="link" href="#how-it-works-2">3.10.1. How it works:</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1393,14 +1440,14 @@ To achieve this function, another thread is created as the sequence diagram show
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.10. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.11. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.11, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.12, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1431,7 +1478,7 @@ To achieve this function, another thread is created as the sequence diagram show
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.11. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.12. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -3052,4 +3099,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-13 10:28:48 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 13:37:41 UTC</div></div></div></body></html>

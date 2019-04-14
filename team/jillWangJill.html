@@ -30,17 +30,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Major enhancement</strong>: added <strong>the ability to generate reminder for each event automatically</strong></p>
+<p><strong>Major enhancement</strong>: added <strong>the ability to add reminder to event, pop up the reminder and delete reminder</strong></p>
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: reminds user 2 minutes before current event. And the reminder will be deleted after 3 minutes showing up.</p>
+<p>What it does: reminds user a certain interval before specific event. And the reminder will be automatically deleted after 1 minutes showing up.</p>
 </li>
 <li>
-<p>Justification: This feature improves the product significantly because event list&#8217;s information is too complicated for one to find the most important event. This automatic function can help in reminding the latest thing.</p>
+<p>Justification: This feature improves the product significantly because event list&#8217;s information is too complicated for one to find the most important event. This automatic function can help in reminding the planned thing.</p>
 </li>
 <li>
-<p>Highlights: This enhancement affects existing addE commands and commands to be added in future. It required connecting with UI, logic, model and storage four parts..</p>
+<p>Highlights: This enhancement enlarge the functionality of UniLA and requires deep understanding of model and logic design. It also requires connecting with UI and storage parts.</p>
 </li>
 <li>
 <p>Credits: Java.util.Date is used. <em>{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}</em></p>
@@ -49,10 +49,11 @@
 </div>
 </li>
 <li>
-<p><strong>Minor enhancement</strong>: add GUI of reminder function.</p>
+<p><strong>Minor enhancement</strong>: add GUI of reminder function.
+add loading and saving reminder list.</p>
 </li>
 <li>
-<p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103-AY1819S2-W16-1/main/tree/master/src/main/java/seedu/address/model/reminder">Functional code</a>] [<a href="https://github.com/CS2103-AY1819S2-W16-1/main/tree/master/src/test/java/seedu/address/model/reminder">Test code</a>] <em>{give links to collated code files}</em></p>
+<p><strong>Code contributed</strong>: [<a href="https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=jillwangjill">RepoSense Project Code Dashboard</a>]</p>
 </li>
 <li>
 <p><strong>Other contributions</strong>:</p>
@@ -65,6 +66,18 @@
 <li>
 <p>Managed releases <code>v1.2</code> - <code>v1.3</code> on GitHub</p>
 </li>
+<li>
+<p>Check the developer guide to ensure basic information correctness. Updated User Guide, Developer Guide, About Us pages.</p>
+</li>
+<li>
+<p>Prepare user guide screenshot at the beginning of project.</p>
+</li>
+<li>
+<p>Added issues to issue tracker.</p>
+</li>
+<li>
+<p>Helped teammates with their problems regarding github and the project.</p>
+</li>
 </ul>
 </div>
 </li>
@@ -73,7 +86,13 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Updated the addE command (Pull requests <a href="https://github.com/CS2103-AY1819S2-W16-1/main/pull/81">#81</a>)</p>
+<p>AddR command.</p>
+</li>
+<li>
+<p>ListFr and ListR command.</p>
+</li>
+<li>
+<p>DeleteR command.</p>
 </li>
 </ul>
 </div>
@@ -85,6 +104,9 @@
 <li>
 <p>Update User Guide: <a href="https://github.com/CS2103-AY1819S2-W16-1/main/pull/14">#14</a></p>
 </li>
+<li>
+<p>Update Developer Guide:</p>
+</li>
 </ul>
 </div>
 </li>
@@ -93,7 +115,9 @@
 <div class="ulist">
 <ul>
 <li>
-<p>PRs reviewed (with non-trivial review comments): <a href="https://github.com/CS2103-AY1819S2-W16-1/main/pull/97">#97</a>, <a href="https://github.com/CS2103-AY1819S2-W16-1/main/pull/98">#98</a>,https://github.com/CS2103-AY1819S2-W16-1/main/pull/104[#104]</p>
+<p>PRs reviewed (with non-trivial review comments): <a href="https://github.com/CS2103-AY1819S2-W16-1/main/pull/97">#97</a>,
+<a href="https://github.com/CS2103-AY1819S2-W16-1/main/pull/98">#98</a>,
+<a href="https://github.com/CS2103-AY1819S2-W16-1/main/pull/104">#104</a></p>
 </li>
 </ul>
 </div>
@@ -121,25 +145,52 @@
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="reminder-features"><a class="link" href="#reminder-features">Reminder Features</a></h2>
+<div class="sectionbody">
 <div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">Undoing previous command : <code>undo</code></a></h3>
+<h3 id="add-reminder-to-certain-event-code-addr-code"><a class="link" href="#add-reminder-to-certain-event-code-addr-code">Add reminder to certain event : <code>addR</code></a></h3>
 <div class="paragraph">
-<p>Restores the UniLA to the state before the previous <em>undoable</em> command was executed.<br>
-Format: <code>undo</code></p>
+<p>Format: <code>addR EVENT_LIST_INDEX t/INTERVAL u/UNIT</code>
+The event with EVENT_LIST_INDEX will be reminded in pop up reminder list (please refer to <a href="#listR">Showing pop up reminder list : <code>listR</code></a> for showing pop up reminder list ) before INTERVAL UNIT earlier than event beginning time
+After reminder showing for 1 minute in pop up reminder list(please refer to <a href="#listR">Showing pop up reminder list : <code>listR</code></a> for showing pop up reminder list )</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Undoable commands: those commands that modify the UniLA&#8217;s content (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).</p>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Reminder will pop up at <code>INTERVAL</code> <code>UNIT</code> before event&#8217;s beginning.</p>
+</li>
+<li>
+<p><code>EVENT_LIST_INDEX</code> refers to index number shown in the displayed Event List</p>
+</li>
+<li>
+<p><code>EVENT_LIST_INDEX</code> must be a positive integer 1,2,3,4,&#8230;&#8203;</p>
+</li>
+<li>
+<p><code>INTERVAL</code> refers to how long would user prefer to have the remind before the event beginning.</p>
+</li>
+<li>
+<p><code>INTERVAL</code> and <code>REMINDTIME_AFTER</code> must be a positive number 1,2,&#8230;&#8203;,15,16,&#8230;&#8203;,60,&#8230;&#8203;</p>
+</li>
+<li>
+<p><code>UNIT</code> refers to the <code>INTERVAL</code> unit.</p>
+</li>
+<li>
+<p><code>UNIT</code> needs to be MIN, HOUR, YEAR.</p>
+</li>
+<li>
+<p><code>UNIT</code> is case insensitive. Min, HouR, YeAr, &#8230;&#8203; are accepted.</p>
+</li>
+<li>
+<p><code>EVENT_LIST_INDEX</code>, <code>INTERVAL</code>, <code>UNIT</code> should be all filled.</p>
+</li>
+</ul>
 </div>
-</td>
-</tr>
-</table>
+</div>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -147,30 +198,82 @@ Format: <code>undo</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>delete 1</code><br>
-<code>list</code><br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
-</li>
-<li>
-<p><code>select 1</code><br>
-<code>list</code><br>
-<code>undo</code><br>
-The <code>undo</code> command fails as there are no undoable commands executed previously.</p>
-</li>
-<li>
-<p><code>delete 1</code><br>
-<code>clear</code><br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
+<p><code>addR 1 t/3 u/MIN</code><br>
+Adds reminder to the 1st event in the UniLA.<br>
+The pop up time of reminder is 3 minutes before event&#8217;s beginning time. You can see the pop up reminder.<br>
+<code>listR</code><br>
+Show the pop up reminder panel.<br>
+<code>listFr</code><br>
+Show the full list of all reminders. You can always see the added reminder under <code>listFr</code>.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">Redoing the previously undone command : <code>redo</code></a></h3>
+<h3 id="deleteing-a-reminder-code-deleter-code"><a class="link" href="#deleteing-a-reminder-code-deleter-code">Deleteing a reminder : <code>deleteR</code></a></h3>
 <div class="paragraph">
-<p>Reverses the most recent <code>undo</code> command.<br>
-Format: <code>redo</code></p>
+<p>Delete reminders related to specific event. Or delete specific reminder.
+Format: <code>deleteR e/EVENT_LIST_INDEX r/REMINDER_LIST_INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Can only use <code>deleteR e/EVENT_LIST_INDEX</code> or <code>deleteR r/REMINDER_LIST_INDEX</code>.</p>
+</li>
+<li>
+<p>If users input <code>deleteR e/EVENT_LIST_INDEX r/REMINDER_LIST_INDEX</code>, UniLA only consider <code>e/EVENT_LIST_INDEX</code>.</p>
+</li>
+<li>
+<p><code>EVENT_LIST_INDEX</code> refers to index number shown in the displayed Event List</p>
+</li>
+<li>
+<p><code>EVENT_LIST_INDEX</code> must be a positive integer 1,2,3,4,&#8230;&#8203;</p>
+</li>
+<li>
+<p><code>EVENT_LIST_INDEX</code> refers to index number shown in the <code>listFr</code> Full Reminders List</p>
+</li>
+<li>
+<p><code>EVENT_LIST_INDEX</code> must be a positive integer 1,2,3,4,&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Example1:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>listE</code><br>
+Find the event index<br>
+<code>listFr</code><br>
+Show the full reminder list<br>
+<code>deleteR e/2</code><br>
+Delete the reminders related with 2nd event. You can see the full reminder list reduces.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Example2:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>listFr</code><br>
+Show the full reminder list and find the reminder index<br>
+<code>deleteR r/1</code><br>
+Delete the 1st reminder in reminder full list.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="showing-full-reminder-list-code-listfr-code"><a class="link" href="#showing-full-reminder-list-code-listfr-code">Showing full reminder list : <code>listFr</code></a></h3>
+<div class="paragraph">
+<p>Show all the reminders.</p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -178,30 +281,76 @@ Format: <code>redo</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>delete 1</code><br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br></p>
-</li>
-<li>
-<p><code>delete 1</code><br>
-<code>redo</code><br>
-The <code>redo</code> command fails as there are no <code>undo</code> commands executed previously.</p>
-</li>
-<li>
-<p><code>delete 1</code><br>
-<code>clear</code><br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>clear</code> command)<br></p>
+<p><code>listFr</code></p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">Encrypting data files <code>[coming in v2.0]</code></a></h3>
+<h3 id="listR"><a class="link" href="#listR">Showing pop up reminder list : <code>listR</code></a></h3>
 <div class="paragraph">
-<p><em>{explain how the user can enable/disable data encryption}</em></p>
+<p>Show pop up reminder panel.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>listR</code></p>
+</li>
+<li>
+<p><strong>AddR</strong> : <code>addR EVENT_LIST_INDEX t/INTERVAL u/UNIT</code><br>
+e.g. <code>addR 1 t/3 u/MIN</code></p>
+</li>
+<li>
+<p><strong>DeleteR</strong> :  <code>deleteR e/EVENT_LIST_INDEX r/REMINDER_LIST_INDEX</code><br>
+e.g. <code>deleteR e/2</code></p>
+</li>
+<li>
+<p><strong>ListFr</strong> : <code>listFr</code><br>
+e.g. <code>listFr</code></p>
+</li>
+<li>
+<p><strong>ListR</strong> : <code>listR</code><br>
+e.g. <code>listR</code></p>
+</li>
+<li>
+<p><strong>AddE</strong> <code>addE n/NAME d/DESCRIPTION v/VENUE s/STARTING_TIME e/ENDING_TIME l/LABEL</code><br>
+e.g. <code>addE n/career talk d/Google company info session v/com1 level2 s/2019-01-31 14:00:00 e/2019-01-31 14:00:00 l/important</code></p>
+</li>
+<li>
+<p><strong>DeleteE</strong> : <code>delete INDEX</code><br>
+e.g. <code>deleteE 3</code></p>
+</li>
+<li>
+<p><strong>EditE</strong> : <code>editE INDEX [n/NAME] [d/DESCRIPTION] [v/VENUE] [s/STARTING_TIME] [e/ENDING_TIME] [l/LABEL]</code><br>
+e.g. <code>editE 1 d/short meeting l/top priority</code></p>
+</li>
+<li>
+<p><strong>FindE</strong> : <code>findE KEYWORD [MORE_KEYWORDS]</code><br>
+or 'findE [n/NAME] [d/DESCRIPTION] [v/VENUE] [s/STARTING_TIME] [e/ENDING_TIME] [l/LABEL]<br>
+or <code>findE time/operatorDATE</code><br>
+or <code>findE time/alias(ytd, today or tmr)</code><br>
+or <code>findE duration/operatorHOURS</code><br>
+e.g. <code>findE talk</code><br>
+e.g. <code>findE s/2019-04-07 10:00:00</code><br>
+e.g. <code>findE time/&lt;2019-04-09</code><br>
+e.g. <code>findE duration/&lt;3</code></p>
+</li>
+<li>
+<p><strong>ListE</strong> : <code>listE</code></p>
+</li>
+<li>
+<p><strong>Connect</strong> : <code>connect ci/CONTACT_LIST_INDEX ei/EVENT_LIST_INDEX</code></p>
+</li>
+<li>
+<p><strong>Disconnect</strong> : <code>disconnect ci/CONTACT_LIST_INDEX ei/EVENT_LIST_INDEX</code></p>
+</li>
+<li>
+<p><strong>Meet</strong> : <code>meet INDEX [MORE INDICES]</code></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -431,4 +580,4 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 <p><em>{Optionally, you may include other projects in your portfolio.}</em></p>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-13 10:28:48 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 13:37:41 UTC</div></div></div></body></html>
