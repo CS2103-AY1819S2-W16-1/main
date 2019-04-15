@@ -42,9 +42,6 @@
 <li>
 <p>Highlights: This enhancement enlarge the functionality of UniLA and requires deep understanding of model and logic design. It also requires connecting with UI and storage parts.</p>
 </li>
-<li>
-<p>Credits: Java.util.Date is used. <em>{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}</em></p>
-</li>
 </ul>
 </div>
 </li>
@@ -102,10 +99,7 @@ add loading and saving reminder list.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Update User Guide: <a href="https://github.com/CS2103-AY1819S2-W16-1/main/pull/14">#14</a></p>
-</li>
-<li>
-<p>Update Developer Guide:</p>
+<p>Update User Guide, Developer Guide and About US page.</p>
 </li>
 </ul>
 </div>
@@ -115,9 +109,12 @@ add loading and saving reminder list.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>PRs reviewed (with non-trivial review comments): <a href="https://github.com/CS2103-AY1819S2-W16-1/main/pull/97">#97</a>,
-<a href="https://github.com/CS2103-AY1819S2-W16-1/main/pull/98">#98</a>,
-<a href="https://github.com/CS2103-AY1819S2-W16-1/main/pull/104">#104</a></p>
+<p>PRs reviewed (with non-trivial review comments): <a href="https://github.com/CS2103-AY1819S2-W16-1/main/pull/104">#104</a></p>
+</li>
+<li>
+<p>Reported bugs and suggestions for other teams in the class:  <a href="https://github.com/CS2103-AY1819S2-T12-2/main/issues/77">#77</a>,
+<a href="https://github.com/CS2103-AY1819S2-T12-2/main/issues/74">#74</a>, <a href="https://github.com/CS2103-AY1819S2-T12-2/main/issues/72">#72</a>，https://github.com/CS2103-AY1819S2-T12-2/main/issues/69[#69]
+<em>{you can add/remove categories in the list above}</em></p>
 </li>
 </ul>
 </div>
@@ -126,9 +123,6 @@ add loading and saving reminder list.</p>
 </div>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p><em>{you can add/remove categories in the list above}</em></p>
 </div>
 </div>
 </div>
@@ -315,41 +309,6 @@ e.g. <code>listFr</code></p>
 <p><strong>ListR</strong> : <code>listR</code><br>
 e.g. <code>listR</code></p>
 </li>
-<li>
-<p><strong>AddE</strong> <code>addE n/NAME d/DESCRIPTION v/VENUE s/STARTING_TIME e/ENDING_TIME l/LABEL</code><br>
-e.g. <code>addE n/career talk d/Google company info session v/com1 level2 s/2019-01-31 14:00:00 e/2019-01-31 14:00:00 l/important</code></p>
-</li>
-<li>
-<p><strong>DeleteE</strong> : <code>delete INDEX</code><br>
-e.g. <code>deleteE 3</code></p>
-</li>
-<li>
-<p><strong>EditE</strong> : <code>editE INDEX [n/NAME] [d/DESCRIPTION] [v/VENUE] [s/STARTING_TIME] [e/ENDING_TIME] [l/LABEL]</code><br>
-e.g. <code>editE 1 d/short meeting l/top priority</code></p>
-</li>
-<li>
-<p><strong>FindE</strong> : <code>findE KEYWORD [MORE_KEYWORDS]</code><br>
-or 'findE [n/NAME] [d/DESCRIPTION] [v/VENUE] [s/STARTING_TIME] [e/ENDING_TIME] [l/LABEL]<br>
-or <code>findE time/operatorDATE</code><br>
-or <code>findE time/alias(ytd, today or tmr)</code><br>
-or <code>findE duration/operatorHOURS</code><br>
-e.g. <code>findE talk</code><br>
-e.g. <code>findE s/2019-04-07 10:00:00</code><br>
-e.g. <code>findE time/&lt;2019-04-09</code><br>
-e.g. <code>findE duration/&lt;3</code></p>
-</li>
-<li>
-<p><strong>ListE</strong> : <code>listE</code></p>
-</li>
-<li>
-<p><strong>Connect</strong> : <code>connect ci/CONTACT_LIST_INDEX ei/EVENT_LIST_INDEX</code></p>
-</li>
-<li>
-<p><strong>Disconnect</strong> : <code>disconnect ci/CONTACT_LIST_INDEX ei/EVENT_LIST_INDEX</code></p>
-</li>
-<li>
-<p><strong>Meet</strong> : <code>meet INDEX [MORE INDICES]</code></p>
-</li>
 </ul>
 </div>
 </div>
@@ -371,9 +330,21 @@ e.g. <code>findE duration/&lt;3</code></p>
 <div class="sect2">
 <h3 id="reminder-component"><a class="link" href="#reminder-component">Reminder Component</a></h3>
 <div class="paragraph">
-<p>The mechanism is supported by the <code>reminder</code> and <code>reminderList</code> class. It allows users to add reminders, which will pop in app certain interval before event start time.
-<code>reminderList</code> will keep track of all <code>reminder</code>.
-<code>reminder</code> class contains <code>Unit</code>, <code>Interval</code> to facilitate the constructor building.</p>
+<p>The mechanism is supported by the <code>reminder</code> and <code>reminderList</code> class. It allows users to add reminders to event, which will pop in app certain interval before event start time. Please refer to this class diagram.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ReminderEventRelationship.png" alt="ReminderEventRelationship" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p><code>reminderList</code> will keep track of all <code>reminder</code>.
+<code>reminder</code> class contains <code>Unit</code>, <code>Interval</code> to facilitate the constructor building. Please refer to the following class diagram.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ReminderClassDiagram.png" alt="ReminderClassDiagram" width="800">
+</div>
 </div>
 <div class="sect3">
 <h4 id="aspect-how-to-implement-code-reminder-code"><a class="link" href="#aspect-how-to-implement-code-reminder-code">Aspect: How to implement <code>reminder</code></a></h4>
@@ -445,7 +416,11 @@ e.g. <code>findE duration/&lt;3</code></p>
 <div class="sect2">
 <h3 id="reminder-feature"><a class="link" href="#reminder-feature">Reminder Feature</a></h3>
 <div class="paragraph">
-<p>The mechanism is supported by <code>ReminderCheck</code>,<code>AddR</code> and <code>AddR parser</code> classes. It allows users to create a reminder in certain interval before event start time.
+<p>Please take a look at use case diagram first.
+image::ReminderUseCase.png[width="800"]</p>
+</div>
+<div class="paragraph">
+<p>Among these features, the <code>addR</code> combined with <code>reminderCheck</code> is the most useful one. The mechanism is supported by <code>ReminderCheck</code>,<code>AddR</code> and <code>AddR parser</code> classes. It allows users to create a reminder in certain interval before event start time.
 And the reminder will pop inside app at that reminding time. Also, it will disappear after showing up for one minute.</p>
 </div>
 <div class="paragraph">
@@ -504,4 +479,4 @@ And the reminder will pop inside app at that reminding time. Also, it will disap
 <p><em>{Optionally, you may include other projects in your portfolio.}</em></p>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-15 08:40:40 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-15 09:19:54 UTC</div></div></div></body></html>
