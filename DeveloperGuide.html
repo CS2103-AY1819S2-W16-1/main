@@ -87,6 +87,7 @@
 <li><a href="#launch-and-shutdown">H.1. Launch and Shutdown</a></li>
 <li><a href="#deleting-a-person">H.2. Deleting a person</a></li>
 <li><a href="#saving-data">H.3. Saving data</a></li>
+<li><a href="#meeting-planner-2">H.4. Meeting planner</a></li>
 </ul>
 </li>
 </ul>
@@ -1294,24 +1295,7 @@ To achieve this function and other person-event related functions, a unidirectio
 </div>
 <div class="paragraph">
 <p>Format:
-<code>meet INDEX TAGS n/NAME d/DESCRIPTION v/VENUE l/LABEL duration/DURATION s/STARTDATETIME e/ENDDATETIME block/BLOCK</code> where:</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>There must be at least one valid index or one valid tag entered.</p>
-</li>
-<li>
-<p>There must be at least two people entered to form a meeting event.</p>
-</li>
-<li>
-<p>The rest of the fields are optional.</p>
-</li>
-</ul>
-</div>
-</div>
+<code>meet INDEX TAGS n/NAME d/DESCRIPTION v/VENUE l/LABEL duration/DURATION s/STARTDATETIME e/ENDDATETIME block/BLOCK</code></p>
 </div>
 <div class="paragraph">
 <p>Example:</p>
@@ -1424,7 +1408,7 @@ To achieve this function and other person-event related functions, a unidirectio
 <p>Suppose the user enters <code>meet 1 2 3 s/2019-05-14 03:00 duration/0 4 0 0 block/09:30 18:00</code>. In this case, the indices, tags, name, description, venue and label are trivial to the logic. Further suppose the user enters this command at some date and time before 03:00 on 14 May 2019.</p>
 </div>
 <div class="paragraph">
-<p>In this user&#8217;s current events list, there are five events, all involving either persons 1, 2 or 3. These events are "in the way". They are depicted as red boxes in the following diagrams. All other events in the list have been filtered away by the <code>Stream</code>.</p>
+<p>In this user&#8217;s current events list, there are six events, all involving either persons 1, 2 or 3. These events are "in the way". They are depicted as red boxes in the following diagrams. All other events in the list have been filtered away by the <code>Stream</code>.</p>
 </div>
 <div class="paragraph">
 <p>The yellow region signifies the block entered by the user, i.e. the block of time which the event <strong>must</strong> fall in.</p>
@@ -1444,11 +1428,6 @@ To achieve this function and other person-event related functions, a unidirectio
 </div>
 <div class="paragraph">
 <p><code>meeting</code> is first transformed to fit in the first block. This is done by the <code>transformEventToFitBlock(Event e)</code> method.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/MeetCommandLogic3.png" alt="MeetCommandLogic3" width="1000">
-</div>
 </div>
 <div class="paragraph">
 <p>At this point, all existing events in the events list (shown in red) will be piped into a <code>Stream</code> object. This <code>stream</code> is filtered, such that all events that do not have <strong>any</strong> of the proposed meeting participants are filtered out.</p>
@@ -1499,8 +1478,16 @@ To achieve this function and other person-event related functions, a unidirectio
 <div class="paragraph">
 <p>Pictorially, it will look like the following.</p>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="images/MeetCommandLogic3.png" alt="MeetCommandLogic3" width="1000">
+</div>
+</div>
 <div class="paragraph">
 <p>The left-most event is selected as <code>y</code>. In the first use of <code>reduce</code>, the <code>identity</code> was set to be the initial <code>meeting:Event</code>, in blue.</p>
+</div>
+<div class="paragraph">
+<p>Because the event in blue does not clash with the event in green, both events simply reduce to the one in blue, and is deleted. The next left-most event is selected as the next <code>y</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1508,7 +1495,7 @@ To achieve this function and other person-event related functions, a unidirectio
 </div>
 </div>
 <div class="paragraph">
-<p>Because the event in blue does not clash with the event in green, both events simply reduce to the one in blue, and is deleted. The next left-most event is selected as the next <code>y</code>.</p>
+<p>In this case, the event in blue clashes with the event in green. Thus, a new event, with a duration of 4 hours (same as before), that starts at the end of <code>y</code>, is created. This event is then transformed to fit the block, which in this case already does. The old blue and green events are reduced to this new event.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1516,20 +1503,20 @@ To achieve this function and other person-event related functions, a unidirectio
 </div>
 </div>
 <div class="paragraph">
-<p>In this case, the event in blue clashes with the event in green. Thus, a new event, with a duration of 4 hours (same as before), that starts at the end of <code>y</code>, is created. This event is then transformed to fit the block, which in this case already does. The old blue and green events are reduced to this new event.</p>
+<p>Here, the event in blue clashes with the event in green. A new event with a duration of 4 hours, that starts at the end of <code>y</code>, is created. This event is then transformed to fit the block, in this case, it is pushed all the way to start at 09:30 the next day.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/MeetCommandLogic6.png" alt="MeetCommandLogic6" width="1000">
 </div>
 </div>
-<div class="paragraph">
-<p>Here, the event in blue clashes with the event in green. A new event with a duration of 4 hours, that starts at the end of <code>y</code>, is created. This event is then transformed to fit the block, in this case, it is pushed all the way to start at 09:30 the next day.</p>
-</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/MeetCommandLogic6a.png" alt="MeetCommandLogic6a" width="1000">
 </div>
+</div>
+<div class="paragraph">
+<p>The event here does not clash with <code>meeting</code>. Both events reduce to <code>meeting</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1553,7 +1540,7 @@ To achieve this function and other person-event related functions, a unidirectio
 </div>
 </div>
 <div class="paragraph">
-<p>This event is then tested whether its end <code>DateTime</code> is later than the latest end <code>DateTime</code> specified by the user, and whether there are duplicate events.</p>
+<p>This event is then tested whether its end <code>DateTime</code> is later than the latest end <code>DateTime</code> specified by the user, and whether there are duplicate events. I would have written a lot more, but I&#8217;m out of space in my PPP.</p>
 </div>
 </div>
 </div>
@@ -2968,11 +2955,14 @@ for <code>RemarkCommandParser</code>.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">disconnect a person from an event</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">remove this person from the event</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">meet people</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">find common free timeslot and create event with people</p></td>
+</tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p><em>{More to be added}</em></p>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -3342,5 +3332,56 @@ Expected: Similar to previous.</p>
 <p><em>{ more test cases &#8230;&#8203; }</em></p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="meeting-planner-2"><a class="link" href="#meeting-planner-2">H.4. Meeting planner</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Meeting multiple people</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: List all persons using the <code>list</code> command. At least 5 persons must be in the list.</p>
+</li>
+<li>
+<p>Prerequisites: List all events using <code>listE</code> command. No events must be in the list.</p>
+</li>
+<li>
+<p>Test case: <code>meet 1 2</code><br>
+Expected: A 2-hour event with the first two people in this list is created. The event should start in the next hour the user enters the command.</p>
+</li>
+<li>
+<p><code>meet 2 3</code><br>
+Expected: A 2-hour event with the second and third persons in this list is created. This event should start right after the previous event was created.</p>
+</li>
+<li>
+<p><code>switch</code><br>
+<code>edit 1 n/Another Name</code><br>
+<code>listE</code><br>
+<code>select</code> 1
+Expected: The first event should update the changes in the first person&#8217;s name</p>
+</li>
+<li>
+<p><code>meet 4 5 duration/0 3 0 0</code><br>
+Expected: A 3-hour event with the fourth and fifth persons in this list is created. This event should start in the next hour the user enters the command.</p>
+</li>
+<li>
+<p>Test case 2: <code>meet 1</code><br>
+Expected: An error is thrown saying that more than one person must be involved in this event.</p>
+</li>
+<li>
+<p>Test case 3: <code>meet 10000000000000 100000000001</code><br>
+Expected: An error is thrown saying that the indices are invalid.</p>
+</li>
+<li>
+<p>Test case 4: <code>meet 1 1 2 2 2</code><br>
+Expected: The command works as per normal. Duplicates should be ignored.</p>
+</li>
+</ol>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-15 07:53:27 UTC</div></div></div></body></html>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-15 08:18:19 UTC</div></div></div></body></html>

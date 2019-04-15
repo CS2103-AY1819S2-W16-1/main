@@ -28,16 +28,16 @@
 <div class="ulist">
 <ul>
 <li>
-<p>search for the earliest available timeslot among the requested people to meet</p>
+<p>searching for the earliest available timeslot among the requested people to meet</p>
 </li>
 <li>
-<p>create the meeting event in the event list</p>
+<p>creating the meeting event in the event list</p>
 </li>
 <li>
-<p>connect the requested people to the event and</p>
+<p>connecting the requested people to the event and</p>
 </li>
 <li>
-<p>set the details of the event (such as name, description etc.) as requested.</p>
+<p>setting the details of the event (such as name, description etc.) as requested.</p>
 </li>
 </ul>
 </div>
@@ -55,14 +55,10 @@
 <p><strong>Minor enhancement</strong>: added a switch command which allows the user to switch between person and events list view. All commands will also automatically switch accordingly or terminate depending on the current view of the window as the command was entered.</p>
 </li>
 <li>
-<p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103-AY1819S2-W16-1/main/tree/master/src/main" class="bare">https://github.com/CS2103-AY1819S2-W16-1/main/tree/master/src/main</a>] [<a href="https://github.com/CS2103-AY1819S2-W16-1/main/tree/master/src/test" class="bare">https://github.com/CS2103-AY1819S2-W16-1/main/tree/master/src/test</a>] <em>{give links to collated code files}</em></p>
+<p><strong>Code contributed</strong>: [<a href="https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=yonggqiii">RepoSense Project Code Dashboard</a>]</p>
 </li>
 <li>
 <p><strong>Other contributions</strong>:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>UI:</p>
 <div class="ulist">
 <ul>
 <li>
@@ -71,36 +67,22 @@
 <li>
 <p>Wrote UI tests</p>
 </li>
-</ul>
-</div>
-</li>
-<li>
-<p>Documentation:</p>
-<div class="ulist">
-<ul>
 <li>
 <p>Did cosmetic tweaks to existing contents of the README</p>
 </li>
-</ul>
-</div>
-</li>
-<li>
-<p>Community:</p>
-<div class="ulist">
-<ul>
 <li>
 <p>PRs reviewed (with non-trivial review comments): <a href="https://github.com">#100</a></p>
 </li>
-</ul>
-</div>
+<li>
+<p>Helped team do bug fixes</p>
+</li>
+<li>
+<p>Maintained issue tracker</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p><em>{you can add/remove categories in the list above}</em></p>
 </div>
 </div>
 </div>
@@ -437,24 +419,7 @@ indicates that the new meeting event must not fall within night time, defined to
 </div>
 <div class="paragraph">
 <p>Format:
-<code>meet INDEX TAGS n/NAME d/DESCRIPTION v/VENUE l/LABEL duration/DURATION s/STARTDATETIME e/ENDDATETIME block/BLOCK</code> where:</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>There must be at least one valid index or one valid tag entered.</p>
-</li>
-<li>
-<p>There must be at least two people entered to form a meeting event.</p>
-</li>
-<li>
-<p>The rest of the fields are optional.</p>
-</li>
-</ul>
-</div>
-</div>
+<code>meet INDEX TAGS n/NAME d/DESCRIPTION v/VENUE l/LABEL duration/DURATION s/STARTDATETIME e/ENDDATETIME block/BLOCK</code></p>
 </div>
 <div class="paragraph">
 <p>Example:</p>
@@ -567,7 +532,7 @@ indicates that the new meeting event must not fall within night time, defined to
 <p>Suppose the user enters <code>meet 1 2 3 s/2019-05-14 03:00 duration/0 4 0 0 block/09:30 18:00</code>. In this case, the indices, tags, name, description, venue and label are trivial to the logic. Further suppose the user enters this command at some date and time before 03:00 on 14 May 2019.</p>
 </div>
 <div class="paragraph">
-<p>In this user&#8217;s current events list, there are five events, all involving either persons 1, 2 or 3. These events are "in the way". They are depicted as red boxes in the following diagrams. All other events in the list have been filtered away by the <code>Stream</code>.</p>
+<p>In this user&#8217;s current events list, there are six events, all involving either persons 1, 2 or 3. These events are "in the way". They are depicted as red boxes in the following diagrams. All other events in the list have been filtered away by the <code>Stream</code>.</p>
 </div>
 <div class="paragraph">
 <p>The yellow region signifies the block entered by the user, i.e. the block of time which the event <strong>must</strong> fall in.</p>
@@ -587,11 +552,6 @@ indicates that the new meeting event must not fall within night time, defined to
 </div>
 <div class="paragraph">
 <p><code>meeting</code> is first transformed to fit in the first block. This is done by the <code>transformEventToFitBlock(Event e)</code> method.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/MeetCommandLogic3.png" alt="MeetCommandLogic3" width="1000">
-</div>
 </div>
 <div class="paragraph">
 <p>At this point, all existing events in the events list (shown in red) will be piped into a <code>Stream</code> object. This <code>stream</code> is filtered, such that all events that do not have <strong>any</strong> of the proposed meeting participants are filtered out.</p>
@@ -642,8 +602,16 @@ indicates that the new meeting event must not fall within night time, defined to
 <div class="paragraph">
 <p>Pictorially, it will look like the following.</p>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MeetCommandLogic3.png" alt="MeetCommandLogic3" width="1000">
+</div>
+</div>
 <div class="paragraph">
 <p>The left-most event is selected as <code>y</code>. In the first use of <code>reduce</code>, the <code>identity</code> was set to be the initial <code>meeting:Event</code>, in blue.</p>
+</div>
+<div class="paragraph">
+<p>Because the event in blue does not clash with the event in green, both events simply reduce to the one in blue, and is deleted. The next left-most event is selected as the next <code>y</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -651,7 +619,7 @@ indicates that the new meeting event must not fall within night time, defined to
 </div>
 </div>
 <div class="paragraph">
-<p>Because the event in blue does not clash with the event in green, both events simply reduce to the one in blue, and is deleted. The next left-most event is selected as the next <code>y</code>.</p>
+<p>In this case, the event in blue clashes with the event in green. Thus, a new event, with a duration of 4 hours (same as before), that starts at the end of <code>y</code>, is created. This event is then transformed to fit the block, which in this case already does. The old blue and green events are reduced to this new event.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -659,20 +627,20 @@ indicates that the new meeting event must not fall within night time, defined to
 </div>
 </div>
 <div class="paragraph">
-<p>In this case, the event in blue clashes with the event in green. Thus, a new event, with a duration of 4 hours (same as before), that starts at the end of <code>y</code>, is created. This event is then transformed to fit the block, which in this case already does. The old blue and green events are reduced to this new event.</p>
+<p>Here, the event in blue clashes with the event in green. A new event with a duration of 4 hours, that starts at the end of <code>y</code>, is created. This event is then transformed to fit the block, in this case, it is pushed all the way to start at 09:30 the next day.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="../images/MeetCommandLogic6.png" alt="MeetCommandLogic6" width="1000">
 </div>
 </div>
-<div class="paragraph">
-<p>Here, the event in blue clashes with the event in green. A new event with a duration of 4 hours, that starts at the end of <code>y</code>, is created. This event is then transformed to fit the block, in this case, it is pushed all the way to start at 09:30 the next day.</p>
-</div>
 <div class="imageblock">
 <div class="content">
 <img src="../images/MeetCommandLogic6a.png" alt="MeetCommandLogic6a" width="1000">
 </div>
+</div>
+<div class="paragraph">
+<p>The event here does not clash with <code>meeting</code>. Both events reduce to <code>meeting</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -696,9 +664,9 @@ indicates that the new meeting event must not fall within night time, defined to
 </div>
 </div>
 <div class="paragraph">
-<p>This event is then tested whether its end <code>DateTime</code> is later than the latest end <code>DateTime</code> specified by the user, and whether there are duplicate events.</p>
+<p>This event is then tested whether its end <code>DateTime</code> is later than the latest end <code>DateTime</code> specified by the user, and whether there are duplicate events. I would have written a lot more, but I&#8217;m out of space in my PPP.</p>
 </div>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-15 07:53:27 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-15 08:18:19 UTC</div></div></div></body></html>
