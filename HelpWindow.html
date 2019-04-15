@@ -1065,36 +1065,8 @@ Returns all the events which are longer than 4 hours.</p>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="creating-a-simple-meeting"><a class="link" href="#creating-a-simple-meeting">4.8.1. Creating a simple meeting:</a></h4>
 <div class="paragraph">
-<p>This section will explain how to create a simple meeting event lasting 2 hours, with the defaults of:</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Name: <code>New meeting</code></p>
-</li>
-<li>
-<p>Description: <code>Meeting with contacts.</code></p>
-</li>
-<li>
-<p>Venue: <code>NUS</code></p>
-</li>
-<li>
-<p>Label: <code>meeting</code></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>The earliest this event would be created will be at the start of the next hour from the time the event was run. That is, if user ran the command on 1st Jan 2019 at 4:59pm, the earliest meeting event that could be created would be on 1st Jan 2019 at 5pm.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>meet INDEX</code> or <code>meet TAGS</code>, or both <code>meet INDEX TAGS</code> where</p>
+<p>Format: <code>meet INDEX TAGS n/NAME d/DESCRIPTION v/VENUE l/LABEL s/STARTDATETIME e/ENDDATETIME duration/D H M S block/BLOCK</code> where</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -1106,85 +1078,6 @@ Returns all the events which are longer than 4 hours.</p>
 <li>
 <p><code>TAGS</code> denotes the tags of the people in the contact list the user wants to meet. For example, entering tags <code>t/friends</code> will retrieve all persons with the <code>friends</code> tag.</p>
 </li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>and these fields must adhere to the following requirements:</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p><code>INDEX</code> <strong>must be positive integers</strong> 1, 2, 3&#8230;&#8203;</p>
-</li>
-<li>
-<p><code>TAGS</code> <strong>must be valid alphanumeric tag names</strong>, each with the <code>t/</code> prefix, such as <code>t/tagOne t/tagTwo</code></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Note</strong>: All fields are optional, but at least two valid persons must be specified.</p>
-</div>
-<div class="paragraph">
-<p><strong>Note</strong>: Entering multiple tags create and/or relationships, more specifically, if a user specifies two tags, <code>tagone</code> and <code>tagtwo</code>, then every person who has <code>tagone</code> <strong>and/or</strong> <code>tagtwo</code> will be retrieved (think of it as a union of two sets, not the intersection).</p>
-</div>
-<div class="paragraph">
-<p>Example 1:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>list</code><br>
-List all contacts in index order. Find the indices of the contacts to meet. Say, the user requests to meet the 1st, 4th and 7th contact in this list.<br>
-<code>meet 1 4 7</code><br>
-This creates a 2h meeting event including the 1st, 4th and 7th contact in the contacts list.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Example 2:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>list</code><br>
-List all contacts in index order. Find the tags of the contacts to meet. Say, the user requests to meet contacts with the <code>friends</code> tag.<br>
-<code>meet t/friends</code><br>
-This creates a 2h meeting event including all contacts with the <code>friends</code> tag.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Example 3:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>list</code><br>
-List all contacts in index order. Find the indices and tags of the contacts to meet. Say, the user requests to meet the 1st and 3rd person, and everyone with the <code>family</code> and/or <code>colleagues</code> tags.<br>
-<code>meet 1 3 t/family t/colleagues</code><br>
-This creates a 2h meeting event including the 1st, 3rd contact in the list, and all contacts with the <code>family</code> and/or <code>colleagues</code> tag.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="adding-event-details"><a class="link" href="#adding-event-details">4.8.2. Adding Event Details:</a></h4>
-<div class="paragraph">
-<p>This section will explain how users can customize the name, description, venue and label of the meeting event, instead of sticking to the defaults.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>meet INDEX TAGS n/NAME d/DESCRIPTION v/VENUE l/LABEL</code> where</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
 <li>
 <p><code>NAME</code> is the name of the new meeting event</p>
 </li>
@@ -1197,104 +1090,6 @@ This creates a 2h meeting event including the 1st, 3rd contact in the list, and 
 <li>
 <p><code>LABEL</code> is the label given to this new meeting event.</p>
 </li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>and these fields must adhere to the following requirements:</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p><code>NAME</code> must be a valid event name</p>
-</li>
-<li>
-<p><code>DESCRIPTION</code> must be a valid event description</p>
-</li>
-<li>
-<p><code>VENUE</code> must be a valid event venue and</p>
-</li>
-<li>
-<p><code>LABEL</code> must be a valid alphanumeric event label.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Note</strong>: These fields are optional.</p>
-</div>
-<div class="paragraph">
-<p>Example 1:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>meet 1 2 n/Meetup with Alice</code><br>
-Creates a 2h meeting event with the first and second persons in the contact list, and sets the event name to be <code>Meetup with Alice</code>.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Example 2:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>meet 1 2 d/We&#8217;re going out for breakfast, then heading to Starbucks for a discussion on our next project.</code><br>
-Creates a 2h meeting with the first and second persons in the contact list, and sets the description of the meeting to the above description.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Example 3:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>meet 1 2 v/COM1-B1111</code><br>
-Creates a 2h meeting with the first and second persons in the contact list, and sets the venue of the meeting to <code>COM1-B1111</code>.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Example 4:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>meet 1 2 l/meal</code><br>
-Creates a 2h meeting with the first and second persons in the contact list, and sets the label of the meeting to be <code>meal</code>.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Example 5:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>meet 2 t/friends n/Barbeque d/BBQ with old friends v/Sheares Hall l/relaxed</code><br>
-Creates a 2h meeting with the second person in the contact list and all contacts with the tag <code>friends</code>, and sets the event details to be the above.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="changing-the-duration-of-the-event"><a class="link" href="#changing-the-duration-of-the-event">4.8.3. Changing the Duration of the Event:</a></h4>
-<div class="paragraph">
-<p>This section will explain how to change the duration of the event, instead of sticking to the default event duration of 2 hours. Note that the command will automatically search for the earliest available block of time of this same duration among all specified contacts, instead of only searching for 2-hour blocks.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>meet INDEX TAGS duration/D H M S</code> where</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
 <li>
 <p><code>D</code> is the number of days the event will have</p>
 </li>
@@ -1307,76 +1102,6 @@ Creates a 2h meeting with the second person in the contact list and all contacts
 <li>
 <p><code>S</code> is the number of seconds the event will have.</p>
 </li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>and these fields must adhere to the following requirements:</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p><code>D</code>, <code>H</code>, <code>M</code>, <code>S</code> are all integers, and</p>
-</li>
-<li>
-<p>The specified duration is nonnegative.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Note</strong>: This field is optional, and <code>D</code>, <code>H</code>, <code>M</code> and <code>S</code> <strong>can</strong> be negative. The command works as long as the duration in its <strong>entirety</strong> is nonnegative.</p>
-</div>
-<div class="paragraph">
-<p>Example 1:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>meet 1 2 duration/0 2 0 0</code><br>
-Creates a 2h meeting with the first and second persons in the contact list.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Example 2:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>meet 1 2 duration/1 2 3 40</code><br>
-Creates a 1-day, 2-hour, 3-minute and 40-second long meeting event with the first and second persons in the contact list.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Example 3:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>meet 1 2 duration/0 1 -1 0</code><br>
-Creates a 59-minute meeting event with the first and second persons in the contact list (1 hour and -1 minutes equates to 59 minutes).</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="setting-restrictions-on-meeting-events"><a class="link" href="#setting-restrictions-on-meeting-events">4.8.4. Setting Restrictions on Meeting Events</a></h4>
-<div class="paragraph">
-<p>This section will explain how the user can specify restrictions on the possible meeting event. This is so that the user can prevent meeting events being created with odd start timings or extremely late end timings.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>meet INDEX TAGS s/STARTDATETIME e/ENDDATETIME block/BLOCK</code> where</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
 <li>
 <p><code>STARTDATETIME</code> is the earliest possible start date and time of the new meeting event</p>
 </li>
@@ -1391,12 +1116,45 @@ Creates a 59-minute meeting event with the first and second persons in the conta
 </div>
 </div>
 <div class="paragraph">
-<p>and must adhere to the following requirements:</p>
+<p>and must abide by these restrictions:</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
+<li>
+<p><code>INDEX</code> <strong>must be positive integers</strong> 1, 2, 3&#8230;&#8203;</p>
+</li>
+<li>
+<p><code>TAGS</code> <strong>must be valid alphanumeric tag names</strong>, each with the <code>t/</code> prefix, such as <code>t/tagOne t/tagTwo</code></p>
+</li>
+<li>
+<p>Duplicates are allowed but are ignored</p>
+</li>
+<li>
+<p>At least two valid persons were specified</p>
+</li>
+<li>
+<p><code>NAME</code> must be a valid event name</p>
+</li>
+<li>
+<p><code>DESCRIPTION</code> must be a valid event description</p>
+</li>
+<li>
+<p><code>VENUE</code> must be a valid event venue and</p>
+</li>
+<li>
+<p><code>LABEL</code> must be a valid alphanumeric event label.</p>
+</li>
+<li>
+<p><code>D</code>, <code>H</code>, <code>M</code>, <code>S</code> are all integers</p>
+</li>
+<li>
+<p>Individually, <code>D</code>, <code>H</code>, <code>M</code> and <code>S</code> can be negative</p>
+</li>
+<li>
+<p>The specified duration in its <strong>entirety</strong> is nonnegative.</p>
+</li>
 <li>
 <p>Both <code>STARTDATETIME</code> and <code>ENDDATETTIME</code> are valid DateTimes</p>
 </li>
@@ -1408,51 +1166,57 @@ Creates a 59-minute meeting event with the first and second persons in the conta
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Note</strong>: The earliest possible start date and time is the default, i.e. the next hour from the time the user enters the command.</p>
+<p>The earliest this event would be created will be at the start of the next hour from the time the event was run. That is, if user ran the command on 1st Jan 2019 at 4:59pm, the earliest meeting event that could be created would be on 1st Jan 2019 at 5pm.</p>
 </div>
 <div class="paragraph">
-<p>Example 1:</p>
+<p><strong>Note</strong>: All fields are optional, but at least two valid persons must be specified. If a field is unspecified, a default value is used.</p>
 </div>
+<div class="paragraph">
+<p><strong>Note</strong>: Entering multiple tags create and/or relationships, more specifically, if a user specifies two tags, <code>tagone</code> and <code>tagtwo</code>, then every person who has <code>tagone</code> <strong>and/or</strong> <code>tagtwo</code> will be retrieved (think of it as a union of two sets, not the intersection).</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="paragraph">
+<p><code>meet 1 2 t/friends t/colleagues n/Snooker competition d/Playing snooker again v/SAFRA Toa Payoh l/snooker duration/0 8 -30 0 s/2019-05-01 00:00:00 e/2019-05-07 00:00:00 block/09:00 18:00</code></p>
+</div>
+<div class="paragraph">
+<p>creates an event whereby:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p><code>meet 1 2 s/2019-05-26 12:00:00</code><br>
-creates a new 2-hour long meeting event with the first and second persons of the contact list, with the earliest possible start time of the event to be 26 May 2019 at 12pm, unless the time of entering the command is after 26 May 2019 11am.</p>
+<p>The event will have the first and second people in the contact list, and all persons with the <code>friends</code> or <code>colleagues</code> tag, or both</p>
 </li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Example 2:</p>
-</div>
-<div class="ulist">
-<ul>
 <li>
-<p><code>meet 1 2 e/2019-04-01 22:30:00</code><br>
-creates a new 2-hour long meeting event with the first and second persons of the contact list, with the latest possible end time of the event to be 1st April 2019 at 10.30pm. If UniLA cannot find a suitable timeslot before this stated date and time, UniLA will prompt that no event can be made.</p>
+<p>The event&#8217;s name is <code>Snooker competition</code></p>
 </li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Example 3:</p>
-</div>
-<div class="ulist">
-<ul>
 <li>
-<p><code>meet 1 2 block/!22:59 02:00</code><br>
-creates a new 2-hour long meeting with the first and second persons of the contact list, and the event must not fall within 10.59pm to 2am of the next day. If UniLA cannot find a suitable timeslot that falls within this block (likely because the duration of the event exceeds the duration permitted by this block), then UniLA will prompt that no event can be made.</p>
+<p>The event&#8217;s description is <code>Playing snooker again</code></p>
 </li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Example 4:</p>
-</div>
-<div class="ulist">
-<ul>
 <li>
-<p><code>meet 1 2 s/2019-05-01 00:00:00 e/2019-05-07 00:00:00 block/school</code><br>
-creates a new 2-hour long meeting with the first and second persons of the contact list, and the event must start at or after 1st May 2019 at 12am, must end at or before 7th May 2019 at 12am, and must fall within school hours, i.e. within 8am to 6pm of the same day.</p>
+<p>The event venue is <code>SAFRA Toa Payoh</code></p>
+</li>
+<li>
+<p>The event is labeled as <code>snooker</code></p>
+</li>
+<li>
+<p>The event will last 7 hours and 30 minutes</p>
+</li>
+<li>
+<p>The event will start at or after 1st May 2019 at 12am</p>
+</li>
+<li>
+<p>The event will end at or before 7th May 2019 at 12am</p>
+</li>
+<li>
+<p>The event must fall within 9am to 6pm of the same day.</p>
 </li>
 </ul>
+</div>
+</div>
 </div>
 <div class="sect4">
 <h5 id="defining-a-valid-block"><a class="link" href="#defining-a-valid-block">Defining a Valid Block:</a></h5>
@@ -1539,78 +1303,6 @@ indicates that the new meeting event must fall within breakfast hours, defined t
 indicates that the new meeting event must not fall within night time, defined to be 8pm to 12am the next day. Effectively, the event must fall within 12am to 8pm of the same day.</p>
 </li>
 </ul>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="full-meeting-planner-features"><a class="link" href="#full-meeting-planner-features">4.8.5. Full Meeting Planner Features</a></h4>
-<div class="paragraph">
-<p>This section will explain how a user can make use of all the meeting planning features.</p>
-</div>
-<div class="paragraph">
-<p>Format:
-<code>meet INDEX TAGS n/NAME d/DESCRIPTION v/VENUE l/LABEL duration/DURATION s/STARTDATETIME e/ENDDATETIME block/BLOCK</code> where:</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>There must be at least one valid index or one valid tag entered.</p>
-</li>
-<li>
-<p>There must be at least two people forming the meeting</p>
-</li>
-<li>
-<p>The rest of the fields are optional.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Example:</p>
-</div>
-<div class="paragraph">
-<p><code>meet 1 2 t/friends t/colleagues n/Snooker competition d/Playing snooker again v/SAFRA Toa Payoh l/snooker duration/0 8 -30 0 s/2019-05-01 00:00:00 e/2019-05-07 00:00:00 block/09:00 18:00</code></p>
-</div>
-<div class="paragraph">
-<p>creates an event whereby:</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>The event will have the first and second people in the contact list, and all persons with the <code>friends</code> or <code>colleagues</code> tag, or both</p>
-</li>
-<li>
-<p>The event&#8217;s name is <code>Snooker competition</code></p>
-</li>
-<li>
-<p>The event&#8217;s description is <code>Playing snooker again</code></p>
-</li>
-<li>
-<p>The event venue is <code>SAFRA Toa Payoh</code></p>
-</li>
-<li>
-<p>The event is labeled as <code>snooker</code></p>
-</li>
-<li>
-<p>The event will last 7 hours and 30 minutes</p>
-</li>
-<li>
-<p>The event will start at or after 1st May 2019 at 12am</p>
-</li>
-<li>
-<p>The event will end at or before 7th May 2019 at 12am</p>
-</li>
-<li>
-<p>The event must fall within 9am to 6pm of the same day.</p>
-</li>
-</ul>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -1879,4 +1571,4 @@ e.g. <code>findE duration/&lt;3</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 23:57:51 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-15 06:54:07 UTC</div></div></div></body></html>
