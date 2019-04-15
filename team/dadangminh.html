@@ -24,7 +24,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: allows the user to import contacts and events from a .json file, as well as exporting them to a .json file by tags</p>
+<p>What it does: allows the user to import contacts, events and reminders from a .json file, as well as exporting them to a .json file by tags</p>
 </li>
 <li>
 <p>Justification: Importing removes the need to manually add contacts or events if the data has already been stored somewhere. Exporting helps the user to safely store data in a separate file to avoid losing data accidentally.</p>
@@ -182,7 +182,7 @@ Format: <code>export n/FILENAME p/FILEPATH [t/TAG]</code></p>
 <div class="sect3">
 <h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
 <div class="paragraph">
-<p>The ImportCommand uses <code>JsonAddressBookStorage</code> to create a temporary <code>AddressBook</code> instance from a given path. It takes in a Path <code>path</code> as argument. The command will add the contacts and events found in this temporary AddressBook but not present in the AddressBook storage into storage. The constructor for ImportCommand is as follows:</p>
+<p>The ImportCommand uses <code>JsonAddressBookStorage</code> to create a temporary <code>AddressBook</code> instance from a given path. It takes in a Path <code>path</code> as argument. The command will add the contacts, events and reminders found in this temporary AddressBook but not present in the AddressBook storage into storage. The constructor for ImportCommand is as follows:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -214,24 +214,24 @@ Format: <code>export n/FILENAME p/FILEPATH [t/TAG]</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Users import contacts and events from one .json file.</p>
+<p><strong>Alternative 1 (current choice):</strong> Users import contacts, events and reminders from one .json file.</p>
 <div class="ulist">
 <ul>
 <li>
 <p>Pros: This approach minimizes the effort needed from users to import data.</p>
 </li>
 <li>
-<p>Cons: Users might want to separate contacts and events so that importing one component will not affect the other</p>
+<p>Cons: Users might want to separate contacts, events and reminders so that importing one component will not affect the other</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> Users import contacts and events from separate files.</p>
+<p><strong>Alternative 2:</strong> Users import contacts, events and reminders from separate files.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Contacts and events can be imported independently.</p>
+<p>Pros: Data can be imported independently.</p>
 </li>
 <li>
 <p>Cons: It takes unnecessary extra effort to import data separately.</p>
@@ -249,7 +249,7 @@ Format: <code>export n/FILENAME p/FILEPATH [t/TAG]</code></p>
 <div class="sect3">
 <h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">Current Implementation</a></h4>
 <div class="paragraph">
-<p>The <code>ExportCommand</code> uses <code>JsonAddressBookStorage</code> class to generate a .json file storing events and contacts by specified tags to store at a specified path. It takes in a String <code>name</code>, Path <code>path</code> and an optional Tag <code>tag</code>. Omitting the tag will simply save all contacts and events into the json file. Below is the main idea ExportCommand constructor:</p>
+<p>The <code>ExportCommand</code> uses <code>JsonAddressBookStorage</code> class to generate a .json file storing contacts, events and reminders by specified tags to store at a specified path. It takes in a String <code>name</code>, Path <code>path</code> and an optional Tag <code>tag</code>. Omitting the tag will simply save all data into the json file. Below is the main idea ExportCommand constructor:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -286,7 +286,7 @@ Format: <code>export n/FILENAME p/FILEPATH [t/TAG]</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>The app exports all contacts and events in the UniLA by default.</p>
+<p>The app exports all contacts, events and reminders in the UniLA by default.</p>
 </li>
 </ul>
 </div>
@@ -296,7 +296,7 @@ Format: <code>export n/FILENAME p/FILEPATH [t/TAG]</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>The app exports all contacts bearing the specified tag in their tagset, along with all events.</p>
+<p>The app exports all contacts bearing the specified tag in their tagset, along with all events and reminders.</p>
 </li>
 </ul>
 </div>
@@ -314,11 +314,11 @@ Format: <code>export n/FILENAME p/FILEPATH [t/TAG]</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1:</strong> Users can export contacts and events into separate files.</p>
+<p><strong>Alternative 1:</strong> Users can export contacts, events, reminders into separate files.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: This implementation removes the dependency between contacts and events. Users can change one component without affecting the other.</p>
+<p>Pros: This implementation removes the dependency between contacts, events and reminders. Users can change one component without affecting the other.</p>
 </li>
 <li>
 <p>Cons: It might take more effort from users to import and export data in general because they need to handle each component separately.</p>
@@ -327,14 +327,14 @@ Format: <code>export n/FILENAME p/FILEPATH [t/TAG]</code></p>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2 (current choice):</strong> Users export both contacts and events into the same file.</p>
+<p><strong>Alternative 2 (current choice):</strong> Users export all data into the same file.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: This implementation helps remove the need for importing contacts and events separately. Instead both can be imported at once.</p>
+<p>Pros: This implementation helps remove the need for importing contacts, events and reminders separately. Instead everything can be imported at once.</p>
 </li>
 <li>
-<p>Cons: Contacts and events are exported together, and thus there is codependency between these two components</p>
+<p>Cons: Contacts, events and reminders are exported together, and thus there is codependency between these components.</p>
 </li>
 </ul>
 </div>
@@ -354,4 +354,4 @@ Format: <code>export n/FILENAME p/FILEPATH [t/TAG]</code></p>
 <p><em>{Optionally, you may include other projects in your portfolio.}</em></p>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-15 12:06:42 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-15 12:21:28 UTC</div></div></div></body></html>
