@@ -1347,7 +1347,7 @@ To achieve this function and other person-event related functions, a unidirectio
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>MeetCommandParser parses <code>meet</code> command. The MeetCommandParser will ensure that:</p>
+<p><code>MeetCommandParser</code> parses <code>meet</code> command. The <code>MeetCommandParser</code> will ensure that:</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1357,10 +1357,7 @@ To achieve this function and other person-event related functions, a unidirectio
 <p>all indices are valid</p>
 </li>
 <li>
-<p>at least two valid people were entered</p>
-</li>
-<li>
-<p>all other errors caused by invalid arguments will be thrown by ParserUtil and ParserUtilForEvent</p>
+<p>all other errors caused by invalid arguments will be thrown by <code>ParserUtil</code> and <code>ParserUtilForEvent</code></p>
 </li>
 </ul>
 </div>
@@ -1369,16 +1366,16 @@ To achieve this function and other person-event related functions, a unidirectio
 <p>All the fields are passed as arguments into the constructor of <code>MeetCommand</code>, which stores all arguments as instance fields.</p>
 </li>
 <li>
-<p><code>MeetCommand</code> retrieves the specified persons from <code>model</code>. If a person is not able to be retrieved from the contact list, or if it discovers that no valid persons were entered, a <code>CommandException</code> is thrown.</p>
+<p><code>MeetCommand</code> retrieves the specified persons from <code>model</code>. If a person is not able to be retrieved from the contact list, or if it discovers that less than two valid persons were entered, a <code>CommandException</code> is thrown.</p>
 </li>
 <li>
 <p>Next, a check will be done to ensure that the specified start time entered is non-trivial, that is, the earliest event created must start at least from the next hour from the time the user enters the command. If the user enters a date and time before the date and time when the command is entered, the next hour after the current date and time will be used instead.</p>
 </li>
 <li>
-<p>The full event list will be retrieved from <code>model</code>.</p>
+<p>The full event list will be retrieved from <code>model</code>, and piped into a <code>Stream</code>.</p>
 </li>
 <li>
-<p>Events will be filtered off from this temporary list, based on whether the event involves any of the people specified by the user. This is so that a common free slot can be found.</p>
+<p>Events will be filtered off from the <code>Stream</code>, based on whether the event involves any of the people specified by the user. This is so that a common free slot can be found.</p>
 </li>
 <li>
 <p>The events will then be sorted in order of start time, so that the earliest available common free time slot can be found.</p>
@@ -1396,7 +1393,7 @@ To achieve this function and other person-event related functions, a unidirectio
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/MeetCommandSequenceDiagram.png" alt="MeetCommandSequenceDiagram" width="1000">
+<img src="images/MeetCommandSequenceDiagram.png" alt="MeetCommandSequenceDiagram" width="800">
 </div>
 </div>
 <div class="paragraph">
@@ -1416,7 +1413,7 @@ To achieve this function and other person-event related functions, a unidirectio
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/MeetCommandLogic1.png" alt="MeetCommandLogic1" width="1000">
+<img src="images/MeetCommandLogic1.png" alt="MeetCommandLogic1" width="800">
 </div>
 </div>
 <div class="paragraph">
@@ -1424,7 +1421,7 @@ To achieve this function and other person-event related functions, a unidirectio
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/MeetCommandLogic2.png" alt="MeetCommandLogic2" width="1000">
+<img src="images/MeetCommandLogic2.png" alt="MeetCommandLogic2" width="800">
 </div>
 </div>
 <div class="paragraph">
@@ -1461,7 +1458,7 @@ To achieve this function and other person-event related functions, a unidirectio
 <p>In this case, <code>x</code> will always be the <code>meeting</code> event, shown in blue. Event <code>y</code> will be highlighted green.</p>
 </div>
 <div class="paragraph">
-<p>Because the <code>stream</code> has already been sorted in order of start <code>DateTime`s, `y</code> will be selected in order of left to right in the diagram.</p>
+<p>Because the <code>stream</code> has already been sorted in order of start <code>DateTime</code> s, <code>y</code> will be selected in order of left to right in the diagram.</p>
 </div>
 <div class="paragraph">
 <p>The logic behind <code>reduce</code> is as follows:</p>
@@ -1481,18 +1478,18 @@ To achieve this function and other person-event related functions, a unidirectio
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/MeetCommandLogic3.png" alt="MeetCommandLogic3" width="1000">
+<img src="images/MeetCommandLogic3.png" alt="MeetCommandLogic3" width="800">
 </div>
 </div>
 <div class="paragraph">
 <p>The left-most event is selected as <code>y</code>. In the first use of <code>reduce</code>, the <code>identity</code> was set to be the initial <code>meeting:Event</code>, in blue.</p>
 </div>
 <div class="paragraph">
-<p>Because the event in blue does not clash with the event in green, both events simply reduce to the one in blue, and is deleted. The next left-most event is selected as the next <code>y</code>.</p>
+<p>Because the event in blue does not clash with the event in green, both events simply reduce to the one in blue. The next left-most event is selected as the next <code>y</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/MeetCommandLogic4.png" alt="MeetCommandLogic4" width="1000">
+<img src="images/MeetCommandLogic4.png" alt="MeetCommandLogic4" width="800">
 </div>
 </div>
 <div class="paragraph">
@@ -1500,7 +1497,7 @@ To achieve this function and other person-event related functions, a unidirectio
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/MeetCommandLogic5.png" alt="MeetCommandLogic5" width="1000">
+<img src="images/MeetCommandLogic5.png" alt="MeetCommandLogic5" width="800">
 </div>
 </div>
 <div class="paragraph">
@@ -1508,12 +1505,12 @@ To achieve this function and other person-event related functions, a unidirectio
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/MeetCommandLogic6.png" alt="MeetCommandLogic6" width="1000">
+<img src="images/MeetCommandLogic6.png" alt="MeetCommandLogic6" width="800">
 </div>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/MeetCommandLogic6a.png" alt="MeetCommandLogic6a" width="1000">
+<img src="images/MeetCommandLogic6a.png" alt="MeetCommandLogic6a" width="800">
 </div>
 </div>
 <div class="paragraph">
@@ -1521,15 +1518,15 @@ To achieve this function and other person-event related functions, a unidirectio
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/MeetCommandLogic7.png" alt="MeetCommandLogic7" width="1000">
+<img src="images/MeetCommandLogic7.png" alt="MeetCommandLogic7" width="800">
 </div>
 </div>
 <div class="paragraph">
-<p>Here, the event in blue clashes with the event in green. Just as before, the two old events is reduced to a new meeting event that starts right after the end of <code>y</code> and is within the block.</p>
+<p>Here, the event in blue clashes with the event in green. Just as before, the two old events are reduced to a new meeting event that starts right after the end of <code>y</code> and is within the block.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/MeetCommandLogic8.png" alt="MeetCommandLogic8" width="1000">
+<img src="images/MeetCommandLogic8.png" alt="MeetCommandLogic8" width="800">
 </div>
 </div>
 <div class="paragraph">
@@ -1537,7 +1534,7 @@ To achieve this function and other person-event related functions, a unidirectio
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/MeetCommandLogic9.png" alt="MeetCommandLogic9" width="1000">
+<img src="images/MeetCommandLogic9.png" alt="MeetCommandLogic9" width="800">
 </div>
 </div>
 <div class="paragraph">
@@ -3492,4 +3489,4 @@ Expected: The command works as per normal. Duplicates should be ignored.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-15 10:04:08 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-15 10:29:39 UTC</div></div></div></body></html>

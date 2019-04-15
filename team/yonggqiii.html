@@ -62,19 +62,16 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Mounted person info and events info in the right hand panel of the window.</p>
+<p>Improved UI</p>
 </li>
 <li>
-<p>Wrote UI tests</p>
-</li>
-<li>
-<p>Did cosmetic tweaks to existing contents of the README</p>
+<p>Did cosmetic tweaks to existing contents of the README and updated UI</p>
 </li>
 <li>
 <p>PRs reviewed (with non-trivial review comments): <a href="https://github.com">#100</a></p>
 </li>
 <li>
-<p>Helped team do bug fixes</p>
+<p>Helped team to fix bugs</p>
 </li>
 <li>
 <p>Maintained issue tracker</p>
@@ -215,17 +212,17 @@
 <p>The specified duration in its <strong>entirety</strong> is nonnegative.</p>
 </li>
 <li>
-<p>Both <code>STARTDATETIME</code> and <code>ENDDATETTIME</code> are valid DateTimes</p>
+<p>Both <code>STARTDATETIME</code> and <code>ENDDATETTIME</code> are valid `DateTime`s</p>
 </li>
 <li>
-<p><code>BLOCK</code> is a valid block (see Defining a Valid Block).</p>
+<p><code>BLOCK</code> is a valid <code>Block</code> (see Defining a Valid Block).</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>The earliest this event would be created will be at the start of the next hour from the time the event was run. That is, if user ran the command on 1st Jan 2019 at 4:59pm, the earliest meeting event that could be created would be on 1st Jan 2019 at 5pm.</p>
+<p>The earliest this event would be created will be at the start of the next hour from the time the command was run. That is, if user ran the command on 1st Jan 2019 at 4:59pm, the earliest meeting event that could be created would be on 1st Jan 2019 at 5pm.</p>
 </div>
 <div class="paragraph">
 <p><strong>Note</strong>: All fields are optional, but at least two valid persons must be specified. If a field is unspecified, a default value is used.</p>
@@ -470,7 +467,7 @@ indicates that the new meeting event must not fall within night time, defined to
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>MeetCommandParser parses <code>meet</code> command. The MeetCommandParser will ensure that:</p>
+<p><code>MeetCommandParser</code> parses <code>meet</code> command. The <code>MeetCommandParser</code> will ensure that:</p>
 <div class="ulist">
 <ul>
 <li>
@@ -480,10 +477,7 @@ indicates that the new meeting event must not fall within night time, defined to
 <p>all indices are valid</p>
 </li>
 <li>
-<p>at least two valid people were entered</p>
-</li>
-<li>
-<p>all other errors caused by invalid arguments will be thrown by ParserUtil and ParserUtilForEvent</p>
+<p>all other errors caused by invalid arguments will be thrown by <code>ParserUtil</code> and <code>ParserUtilForEvent</code></p>
 </li>
 </ul>
 </div>
@@ -492,16 +486,16 @@ indicates that the new meeting event must not fall within night time, defined to
 <p>All the fields are passed as arguments into the constructor of <code>MeetCommand</code>, which stores all arguments as instance fields.</p>
 </li>
 <li>
-<p><code>MeetCommand</code> retrieves the specified persons from <code>model</code>. If a person is not able to be retrieved from the contact list, or if it discovers that no valid persons were entered, a <code>CommandException</code> is thrown.</p>
+<p><code>MeetCommand</code> retrieves the specified persons from <code>model</code>. If a person is not able to be retrieved from the contact list, or if it discovers that less than two valid persons were entered, a <code>CommandException</code> is thrown.</p>
 </li>
 <li>
 <p>Next, a check will be done to ensure that the specified start time entered is non-trivial, that is, the earliest event created must start at least from the next hour from the time the user enters the command. If the user enters a date and time before the date and time when the command is entered, the next hour after the current date and time will be used instead.</p>
 </li>
 <li>
-<p>The full event list will be retrieved from <code>model</code>.</p>
+<p>The full event list will be retrieved from <code>model</code>, and piped into a <code>Stream</code>.</p>
 </li>
 <li>
-<p>Events will be filtered off from this temporary list, based on whether the event involves any of the people specified by the user. This is so that a common free slot can be found.</p>
+<p>Events will be filtered off from the <code>Stream</code>, based on whether the event involves any of the people specified by the user. This is so that a common free slot can be found.</p>
 </li>
 <li>
 <p>The events will then be sorted in order of start time, so that the earliest available common free time slot can be found.</p>
@@ -519,7 +513,7 @@ indicates that the new meeting event must not fall within night time, defined to
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/MeetCommandSequenceDiagram.png" alt="MeetCommandSequenceDiagram" width="1000">
+<img src="../images/MeetCommandSequenceDiagram.png" alt="MeetCommandSequenceDiagram" width="800">
 </div>
 </div>
 <div class="paragraph">
@@ -539,7 +533,7 @@ indicates that the new meeting event must not fall within night time, defined to
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/MeetCommandLogic1.png" alt="MeetCommandLogic1" width="1000">
+<img src="../images/MeetCommandLogic1.png" alt="MeetCommandLogic1" width="800">
 </div>
 </div>
 <div class="paragraph">
@@ -547,7 +541,7 @@ indicates that the new meeting event must not fall within night time, defined to
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/MeetCommandLogic2.png" alt="MeetCommandLogic2" width="1000">
+<img src="../images/MeetCommandLogic2.png" alt="MeetCommandLogic2" width="800">
 </div>
 </div>
 <div class="paragraph">
@@ -584,7 +578,7 @@ indicates that the new meeting event must not fall within night time, defined to
 <p>In this case, <code>x</code> will always be the <code>meeting</code> event, shown in blue. Event <code>y</code> will be highlighted green.</p>
 </div>
 <div class="paragraph">
-<p>Because the <code>stream</code> has already been sorted in order of start <code>DateTime`s, `y</code> will be selected in order of left to right in the diagram.</p>
+<p>Because the <code>stream</code> has already been sorted in order of start <code>DateTime</code> s, <code>y</code> will be selected in order of left to right in the diagram.</p>
 </div>
 <div class="paragraph">
 <p>The logic behind <code>reduce</code> is as follows:</p>
@@ -604,18 +598,18 @@ indicates that the new meeting event must not fall within night time, defined to
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/MeetCommandLogic3.png" alt="MeetCommandLogic3" width="1000">
+<img src="../images/MeetCommandLogic3.png" alt="MeetCommandLogic3" width="800">
 </div>
 </div>
 <div class="paragraph">
 <p>The left-most event is selected as <code>y</code>. In the first use of <code>reduce</code>, the <code>identity</code> was set to be the initial <code>meeting:Event</code>, in blue.</p>
 </div>
 <div class="paragraph">
-<p>Because the event in blue does not clash with the event in green, both events simply reduce to the one in blue, and is deleted. The next left-most event is selected as the next <code>y</code>.</p>
+<p>Because the event in blue does not clash with the event in green, both events simply reduce to the one in blue. The next left-most event is selected as the next <code>y</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/MeetCommandLogic4.png" alt="MeetCommandLogic4" width="1000">
+<img src="../images/MeetCommandLogic4.png" alt="MeetCommandLogic4" width="800">
 </div>
 </div>
 <div class="paragraph">
@@ -623,7 +617,7 @@ indicates that the new meeting event must not fall within night time, defined to
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/MeetCommandLogic5.png" alt="MeetCommandLogic5" width="1000">
+<img src="../images/MeetCommandLogic5.png" alt="MeetCommandLogic5" width="800">
 </div>
 </div>
 <div class="paragraph">
@@ -631,12 +625,12 @@ indicates that the new meeting event must not fall within night time, defined to
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/MeetCommandLogic6.png" alt="MeetCommandLogic6" width="1000">
+<img src="../images/MeetCommandLogic6.png" alt="MeetCommandLogic6" width="800">
 </div>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/MeetCommandLogic6a.png" alt="MeetCommandLogic6a" width="1000">
+<img src="../images/MeetCommandLogic6a.png" alt="MeetCommandLogic6a" width="800">
 </div>
 </div>
 <div class="paragraph">
@@ -644,15 +638,15 @@ indicates that the new meeting event must not fall within night time, defined to
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/MeetCommandLogic7.png" alt="MeetCommandLogic7" width="1000">
+<img src="../images/MeetCommandLogic7.png" alt="MeetCommandLogic7" width="800">
 </div>
 </div>
 <div class="paragraph">
-<p>Here, the event in blue clashes with the event in green. Just as before, the two old events is reduced to a new meeting event that starts right after the end of <code>y</code> and is within the block.</p>
+<p>Here, the event in blue clashes with the event in green. Just as before, the two old events are reduced to a new meeting event that starts right after the end of <code>y</code> and is within the block.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/MeetCommandLogic8.png" alt="MeetCommandLogic8" width="1000">
+<img src="../images/MeetCommandLogic8.png" alt="MeetCommandLogic8" width="800">
 </div>
 </div>
 <div class="paragraph">
@@ -660,7 +654,7 @@ indicates that the new meeting event must not fall within night time, defined to
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/MeetCommandLogic9.png" alt="MeetCommandLogic9" width="1000">
+<img src="../images/MeetCommandLogic9.png" alt="MeetCommandLogic9" width="800">
 </div>
 </div>
 <div class="paragraph">
@@ -669,4 +663,4 @@ indicates that the new meeting event must not fall within night time, defined to
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-15 10:04:08 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-15 10:29:39 UTC</div></div></div></body></html>
